@@ -1,0 +1,32 @@
+{
+  "run_id": "6afbfa4fb99960232b3d4d0f",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "qwen4-max": {
+      "mesh-retopo-003-r04": {
+        "score": 90.98352554181251,
+        "first": 88.0026,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-105515151-173104068": {
+        "score": 83.1811718978747,
+        "first": 79.804,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-107733960-175999701": {
+        "score": 84.42474795755962,
+        "first": 82.30229999999999,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-108294798-176710428": {
+        "score": 72.28318232917542,
+        "first": 71.43549999999999,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

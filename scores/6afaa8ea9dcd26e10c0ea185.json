@@ -1,0 +1,26 @@
+{
+  "run_id": "6afaa8ea9dcd26e10c0ea185",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "mesh-i2m-010-r05": {
+        "score": 99.89954409673419,
+        "first": 99.8995,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sponza-reference-render-ladder-v2": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sponza-reference-render-ladder-v2-threejs": {
+        "score": 3.1776999999999997,
+        "first": 3.1776999999999997,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

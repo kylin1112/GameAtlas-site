@@ -1,0 +1,14 @@
+{
+  "run_id": "6afd423471a43e1dd9f87e70",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "mesh-retopo-007-r04": {
+        "score": null,
+        "first": null,
+        "run": 1,
+        "kind": "pending"
+      }
+    }
+  }
+}

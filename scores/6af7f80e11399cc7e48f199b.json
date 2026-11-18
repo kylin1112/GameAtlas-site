@@ -1,0 +1,104 @@
+{
+  "run_id": "6af7f80e11399cc7e48f199b",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "animation-expert-04-v1": {
+        "score": 25.683568,
+        "first": 5.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-10-v1": {
+        "score": 5.069551,
+        "first": 5.069599999999999,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-24-v1": {
+        "score": 82.691272,
+        "first": 82.6913,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-31-v1": {
+        "score": 95.7912,
+        "first": 90.235,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-47-v1": {
+        "score": 54.183910000000004,
+        "first": 48.8755,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-56-v1": {
+        "score": 64.988546,
+        "first": 64.9885,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-72-v1": {
+        "score": 91.45339,
+        "first": 91.4534,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-ronin-stow-v1": {
+        "score": 42.209723,
+        "first": 42.2097,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-seraph-wing-deploy-v1": {
+        "score": 91.580523,
+        "first": 91.5805,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-vanguard-shield-guard-v1": {
+        "score": 69.879881,
+        "first": 63.0261,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-hssd-102344403": {
+        "score": 98.54414837993555,
+        "first": 91.45410000000001,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-hssd-105515160-173104077": {
+        "score": 99.94496689186832,
+        "first": 99.3639,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-hssd-108294798-176710428": {
+        "score": 99.77188658767538,
+        "first": 88.7453,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-procthor-01795": {
+        "score": 97.47900010890731,
+        "first": 78.934,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-replicacad-apt-2": {
+        "score": 99.05426414277063,
+        "first": 89.83630000000001,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-002-r05": {
+        "score": 2.66352655512755,
+        "first": 2.66352655512755,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "run_id": "6afc3ffdb99960232b3d4e07",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "qwen4-max": {
+      "mesh-i2m-001-r05": {
+        "score": 51.863250711058306,
+        "first": 47.1995,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-102344022": {
+        "score": 83.62801156328882,
+        "first": 82.6584,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-replicacad-apt-1": {
+        "score": 71.26895763408552,
+        "first": 68.8535,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

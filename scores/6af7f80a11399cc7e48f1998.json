@@ -1,0 +1,134 @@
+{
+  "run_id": "6af7f80a11399cc7e48f1998",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "animation-expert-01-v1": {
+        "score": 5.0,
+        "first": 5.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-09-v1": {
+        "score": 68.434505,
+        "first": 48.7765,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-13-v1": {
+        "score": 13.097294000000002,
+        "first": 13.0973,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-25-v1": {
+        "score": 88.416846,
+        "first": 80.3276,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-42-v1": {
+        "score": 34.379018,
+        "first": 8.7701,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-53-v1": {
+        "score": 64.752106,
+        "first": 5.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-64-v1": {
+        "score": 54.59319299999999,
+        "first": 43.2782,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-expert-73-v1": {
+        "score": 5.0,
+        "first": 5.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-scorpio-backflip-v1": {
+        "score": 83.890716,
+        "first": 65.3653,
+        "run": 1,
+        "kind": "measured"
+      },
+      "animation-titan-rocket-punch-v1": {
+        "score": 58.337834,
+        "first": 58.337799999999994,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-hssd-102344022": {
+        "score": 94.54479058447716,
+        "first": 49.8779,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-hssd-105515151-173104068": {
+        "score": 97.66039671004766,
+        "first": 94.6068,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-hssd-107733960-175999701": {
+        "score": 98.98418505482579,
+        "first": 96.4607,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-molmo-7238": {
+        "score": 98.18120538885987,
+        "first": 83.8619,
+        "run": 1,
+        "kind": "measured"
+      },
+      "camera-reconstruction-v2-localpool-banana-replicacad-apt-1": {
+        "score": 99.8717069704727,
+        "first": 96.9002,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-001-r05": {
+        "score": 61.374638992275266,
+        "first": 61.3746,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-003-r05": {
+        "score": 73.86733923023066,
+        "first": 73.86733923023066,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-005-r05": {
+        "score": 67.13280660029328,
+        "first": 61.5027,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-007-r05": {
+        "score": 16.54163911499977,
+        "first": 16.541600000000003,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-009-r05": {
+        "score": 71.48444616512892,
+        "first": 71.48440000000001,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-03-v1": {
+        "score": 53.04812038838851,
+        "first": 28.2744,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

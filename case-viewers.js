@@ -3,7 +3,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 import {stage,loadGLB,cloneModel,materialControls} from './artifact-viewer.js?v=stream1';
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder),cache=new Map();
-async function delivery(url){if(!url.endsWith('.gz'))return loadGLB(url);if(!cache.has(url))cache.set(url,(async()=>{const r=await fetch(url);if(!r.ok)throw Error('Preview unavailable');const data=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();return loader.parseAsync(data,new URL('.',new URL(url,location.href)).href)})().catch(e=>{cache.delete(url);throw e}));return cache.get(url)}
+async function delivery(url){if(!url.endsWith('.gz'))return loadGLB(url);if(!cache.has(url))cache.set(url,(async()=>{const r=await fetch(url);if(!r.ok)throw Error('Preview unavailable');const bytes=new Uint8Array(await r.arrayBuffer());const data=bytes[0]===31&&bytes[1]===139?await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():bytes.buffer;return loader.parseAsync(data,new URL('.',new URL(url,location.href)).href)})().catch(e=>{cache.delete(url);throw e}));return cache.get(url)}
 const gtURL=id=>id==='animation-scorpio-backflip-v1'?`assets/features/${id}/gt-animated.glb`:`assets/fast/${id}/reference.glb`;
 export async function pair({left,right,input,output,animation,id,video,motion,stale,onTime}){
  const [a,b,samples]=await Promise.all([animation?loadGLB(gtURL(id)):input?delivery(input):null,output?delivery(output):null,motion&&!output?fetch(motion).then(r=>r.json()):null]);

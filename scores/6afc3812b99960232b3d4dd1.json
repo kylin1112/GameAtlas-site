@@ -1,0 +1,20 @@
+{
+  "run_id": "6afc3812b99960232b3d4dd1",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "mesh-i2m-008-r05": {
+        "score": 93.16401186169836,
+        "first": 92.8314,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-002-r04": {
+        "score": 97.47211412159504,
+        "first": 97.4721,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

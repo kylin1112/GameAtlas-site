@@ -2,11 +2,12 @@ import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder),cache=new Map(),views=new Set();
-export function resolveAssetURL(url){const name=url.split('/').pop().split('?')[0];return ['case-4-reference.glb', 'case-4-sol.glb', 'retopo-003-input.glb', 'mesh-retopo-004-r04-input.glb'].includes(name.replace(/\.gz$/,''))?'https://omni.xiaohongshu.com/page/gameatlas-shared-models-20261116/assets/fast/'+name:url}
+const sharedModels = new Set(['case-4-reference.glb', 'case-4-sol.glb', 'retopo-003-input.glb', 'mesh-retopo-004-r04-input.glb']);
 export function loadGLB(url){
- if(/^assets\/fast\/(animation-(expert-(10|01|13)-v1|ronin-stow-v1)\/(delivery|reference)|(?:ironman|nier|nailong|silksong|helmet)-reference|mesh-uv-(010|002|006)-r04-textured)\.glb$/.test(url))url=url.replace('/fast/','/fast/stream/');url=resolveAssetURL(url);
+ if(/^assets\/fast\/(animation-(expert-(10|01|13)-v1|ronin-stow-v1)\/(delivery|reference)|(?:ironman|nier|nailong|silksong|helmet)-reference|mesh-uv-(010|002|006)-r04-textured)\.glb$/.test(url))url=url.replace('/fast/','/fast/stream/');const name=url.split('/').pop();
+ if(sharedModels.has(name))url='case-assets/shared/'+name;
  if(!cache.has(url))cache.set(url,(async()=>{let data;
-  if(url.includes('/fast/')&&typeof DecompressionStream!=='undefined'){
+  if(url.includes('/fast/') || url.startsWith('case-assets/shared/')){
    const r=await fetch(url+'.gz');if(!r.ok)throw Error(`Asset HTTP ${r.status}`);
    const bytes=new Uint8Array(await r.arrayBuffer());data=bytes[0]===31&&bytes[1]===139?await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():bytes.buffer;
   }else{const r=await fetch(url);if(!r.ok)throw Error(`Asset HTTP ${r.status}`);data=await r.arrayBuffer()}

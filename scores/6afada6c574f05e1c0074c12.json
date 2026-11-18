@@ -1,0 +1,284 @@
+{
+  "run_id": "6afada6c574f05e1c0074c12",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "mesh-i2m-004-r05": {
+        "score": 1.811115129603582,
+        "first": 1.811115129603582,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-006-r05": {
+        "score": 98.07893615967576,
+        "first": 86.072,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-04-v1": {
+        "score": 3.1815826022901583,
+        "first": 3.1815999999999995,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-06-v1": {
+        "score": 21.096536616710747,
+        "first": 21.096500000000002,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-10-v1": {
+        "score": 14.581568736418477,
+        "first": 14.5816,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-42-v1": {
+        "score": 13.847169009984942,
+        "first": 11.8782,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-53-v1": {
+        "score": 17.079938944391383,
+        "first": 17.079900000000002,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-59-v1": {
+        "score": 38.59832478467858,
+        "first": 28.0607,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-60-v1": {
+        "score": 25.020784904023678,
+        "first": 25.020799999999998,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-72-v1": {
+        "score": 20.7395579881696,
+        "first": 20.7396,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-expert-73-v1": {
+        "score": 29.480451457655892,
+        "first": 29.4805,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-nailong-v1": {
+        "score": 73.12714413406518,
+        "first": 73.1271,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-ronin-v1": {
+        "score": 33.594893120468484,
+        "first": 33.5949,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-scorpio-v1": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-seraph-v1": {
+        "score": 41.98241552330671,
+        "first": 41.9824,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-titan-v1": {
+        "score": 41.98251066116608,
+        "first": 41.9825,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-i2m-vanguard-v1": {
+        "score": 32.09824384201222,
+        "first": 31.9136,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-001-r04": {
+        "score": 99.43803907885456,
+        "first": 99.438,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-003-r04": {
+        "score": 99.81862208277838,
+        "first": 99.0201,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-006-r04": {
+        "score": 99.74132233713706,
+        "first": 99.7413,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-008-r04": {
+        "score": 99.63779972927222,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-009-r04": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-retopo-010-r04": {
+        "score": 99.81689453125,
+        "first": 82.6058,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-001-r04": {
+        "score": 36.28081401276941,
+        "first": 36.2808,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-002-r04": {
+        "score": 74.52515164788258,
+        "first": 74.5252,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-003-r04": {
+        "score": 69.92979536182746,
+        "first": 65.8967,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-004-r04": {
+        "score": 72.1092610440246,
+        "first": 72.1093,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-005-r04": {
+        "score": 78.17781389599833,
+        "first": 78.17779999999999,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-006-r04": {
+        "score": 36.81471932649302,
+        "first": 36.8147,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-007-r04": {
+        "score": 62.943768877405425,
+        "first": 62.9438,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-008-r04": {
+        "score": 0.0,
+        "first": 4.4315,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-009-r04": {
+        "score": 62.20528742341385,
+        "first": 61.588699999999996,
+        "run": 1,
+        "kind": "measured"
+      },
+      "mesh-uv-010-r04": {
+        "score": 50.621167759806326,
+        "first": 50.6212,
+        "run": 1,
+        "kind": "measured"
+      },
+      "psd-banner-bridge-v1": {
+        "score": 95.51,
+        "first": 95.49,
+        "run": 1,
+        "kind": "measured"
+      },
+      "psd-banner-sea-v1": {
+        "score": 96.36,
+        "first": 96.36,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-102344022": {
+        "score": 92.00907050934318,
+        "first": 92.0091,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-102344403": {
+        "score": 96.69105161515279,
+        "first": 96.69105161515279,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-105515151-173104068": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-105515160-173104077": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-107733960-175999701": {
+        "score": 93.07991801335133,
+        "first": 93.07990000000001,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-108294798-176710428": {
+        "score": 87.61123496925467,
+        "first": 87.61123496925467,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-molmo-7238": {
+        "score": 88.43640475360417,
+        "first": 88.1515,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-procthor-01795": {
+        "score": 97.46981721328818,
+        "first": 96.724,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-replicacad-apt-1": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-replicacad-apt-2": {
+        "score": 0.0,
+        "first": 0.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "threejs-beautiful-game-render-repair": {
+        "score": 81.35007459243687,
+        "first": 45.9516,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}

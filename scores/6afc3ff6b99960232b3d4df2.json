@@ -1,0 +1,38 @@
+{
+  "run_id": "6afc3ff6b99960232b3d4df2",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "hy4": {
+      "psd-banner-bridge-v1": {
+        "score": 93.93,
+        "first": 20.0,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-hssd-108294798-176710428": {
+        "score": 50.586722988578515,
+        "first": 50.586722988578515,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-procthor-01795": {
+        "score": 91.93938530661951,
+        "first": 91.93938530661951,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-replicacad-apt-1": {
+        "score": 78.38890095552048,
+        "first": 77.57509999999999,
+        "run": 1,
+        "kind": "measured"
+      },
+      "sceneactbench-layout-localpool-banana-replicacad-apt-2": {
+        "score": 79.1129125653311,
+        "first": 79.1207,
+        "run": 1,
+        "kind": "measured"
+      }
+    }
+  }
+}
