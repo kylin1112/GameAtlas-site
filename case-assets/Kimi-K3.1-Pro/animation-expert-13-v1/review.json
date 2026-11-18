@@ -1,0 +1,1 @@
+{"model":"Kimi-K3.1-Pro","task":"animation-expert-13-v1","available":false,"motion":"motion.json","evaluation":{"metrics":[],"deductions":[],"checks":["asset signature changed"],"summary":"Pose and contact fidelity, multiplied by temporal stability.","version":"animation-v4-calibration-20261109"}}

@@ -1,0 +1,143 @@
+[
+  {
+    "id": "camera-reconstruction-v2-localpool-banana-hssd-107733960-175999701",
+    "title": "Finding the viewpoint",
+    "tag": "Progressive refinement",
+    "summary": "Five scored submissions improve the recovered camera. The trace records camera fitting and parameter revisions; the score curve shows the measured outcome.",
+    "sourceTrial": "camera-reconstruction-v2-localpool-banana-hssd-107733960-175999701__mrA1_2026-11-13__00-51-39",
+    "steps": [
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.136617,\"best_score\":0.136617,\"is_best\":true,\"baseline\":false,\"submission_index\":1,\"remaining_submissions\":4}\n",
+        "toolCalls": 11,
+        "score": 13.6617,
+        "index": 1
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.34507,\"best_score\":0.34507,\"is_best\":true,\"baseline\":false,\"submission_index\":2,\"remaining_submissions\":3}\n",
+        "toolCalls": 7,
+        "score": 34.507,
+        "index": 2
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.663222,\"best_score\":0.663222,\"is_best\":true,\"baseline\":false,\"submission_index\":3,\"remaining_submissions\":2}\n",
+        "toolCalls": 10,
+        "score": 66.3222,
+        "index": 3
+      },
+      {
+        "command": "cp /app/workspace/camera_candidate.json /app/workspace/fit4_camera.json && python3 - <<'PY'\nfrom fit_camera import *\na=getp('/app/workspace/fit3_camera.json');b=getp('/app/workspace/fit4_camera.json');p=a+1.5*(b-a);save(p);print(p[:3],np.rad2deg(p[3:]))\nPY\nsubmit_score",
+        "receipt": "[ 0.47415165 -2.34691034  1.34342915] [ 5.20083051e+00 -3.54871895e-01  1.57938930e-02  7.22526657e+01]\n{\"score\":0.692309,\"best_score\":0.692309,\"is_best\":true,\"baseline\":false,\"submission_index\":4,\"remaining_submissions\":1}\n",
+        "toolCalls": 2,
+        "score": 69.23089999999999,
+        "index": 4
+      },
+      {
+        "command": "cp /app/workspace/camera_candidate.json /app/workspace/fit5_camera.json && python3 - <<'PY'\nfrom fit_camera import *\na=getp('/app/workspace/fit3_camera.json');b=getp('/app/workspace/fit4_camera.json');p=a+1.35*(b-a)\ndz=1.35-p[2];p[2]=1.35;p[4]+=dz/4.8;p[5]=0\nsave(p);print(p[:3],np.rad2deg(p[3:]))\nPY\nsubmit_score",
+        "receipt": "[ 0.47085052 -2.35284068  1.35      ] [ 5.2248949  -0.28818749  0.         72.16776608]\n{\"score\":0.746129,\"best_score\":0.746129,\"is_best\":true,\"baseline\":false,\"submission_index\":5,\"remaining_submissions\":0}\n",
+        "toolCalls": 1,
+        "score": 74.61290000000001,
+        "index": 5
+      }
+    ],
+    "model": "GPT-6.1 Sol",
+    "archive": "2026-11-13",
+    "audit": "verified"
+  },
+  {
+    "id": "mesh-i2m-nailong-v1",
+    "title": "Refinement has trade-offs",
+    "tag": "Non-monotonic progress",
+    "summary": "The second submission scores highest among the five online evaluations. Later revisions lose and regain points: additional iteration does not guarantee improvement.",
+    "sourceTrial": "mesh-i2m-nailong-v1__Ixc0_2026-11-12__10-25-17",
+    "steps": [
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.654178,\"best_score\":0.654178,\"is_best\":true,\"baseline\":false,\"submission_index\":1,\"remaining_submissions\":4}\n",
+        "toolCalls": 22,
+        "score": 65.4178,
+        "index": 1
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.669797,\"best_score\":0.669797,\"is_best\":true,\"baseline\":false,\"submission_index\":2,\"remaining_submissions\":3}\n",
+        "toolCalls": 6,
+        "score": 66.9797,
+        "index": 2
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.663833,\"best_score\":0.669797,\"is_best\":false,\"baseline\":false,\"submission_index\":3,\"remaining_submissions\":2}\n",
+        "toolCalls": 3,
+        "score": 66.3833,
+        "index": 3
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.640251,\"best_score\":0.669797,\"is_best\":false,\"baseline\":false,\"submission_index\":4,\"remaining_submissions\":1}\n",
+        "toolCalls": 4,
+        "score": 64.0251,
+        "index": 4
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.666389,\"best_score\":0.669797,\"is_best\":false,\"baseline\":false,\"submission_index\":5,\"remaining_submissions\":0}\n",
+        "toolCalls": 5,
+        "score": 66.6389,
+        "index": 5
+      }
+    ],
+    "model": "GPT-6.1 Sol",
+    "archive": "2026-11-13",
+    "audit": "verified"
+  },
+  {
+    "id": "mesh-uv-008-r04",
+    "title": "A difficult surface to unwrap",
+    "tag": "Persistent low scores",
+    "summary": "Three zero-score submissions precede a small improvement, followed by another zero. These are measured scores in this archived run, not missing results.",
+    "sourceTrial": "mesh-uv-008-r04__xqQG_2026-11-12__13-39-59",
+    "steps": [
+      {
+        "command": "blender -b -t 4 --python /app/workspace/verify_export.py && submit_score",
+        "receipt": "Traceback (most recent call last):\n  File \"/app/workspace/verify_export.py\", line 13, in <module>\n    print(json.dumps(report,indent=2));assert err<2e-6;assert normalerr<2e-5\n                                                              ^^^^^^^^^^^^^^\nAssertionError\nFBX version: 7400\n{\n  \"mesh\": \"SciFiHelmet\",\n  \"triangles\": 23358,\n  \"vertices\": 70074,\n  \"max_position_error_m\": 1.1920928955078125e-07,\n  \"max_corner_normal_error\": 0.00017333030700683594,\n  \"has_custom_normals\": true,\n  \"uv_layer\": \"UVMap\",\n  \"uv_min\": [\n    0.01630512624979019,\n    0.015686145052313805\n  ],\n  \"uv_max\": [\n    0.9844971895217896,\n    0.9502895474433899\n  ],\n  \"bounds_min\": [\n    -1.151152491569519,\n    -1.2511277198791504,\n    -1.4587182998657227\n  ],\n  \"bounds_max\": [\n    1.151152491569519,\n    1.2511286735534668,\n    1.4587184190750122\n  ]\n}\nBlender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:32:04)\n\nBlender quit\n{\"score\":0.0,\"best_score\":0.0,\"is_best\":true,\"baseline\":false,\"submission_index\":1,\"remaining_submissions\":4}\n",
+        "toolCalls": 20,
+        "score": 0.0,
+        "index": 1
+      },
+      {
+        "command": "cp /app/workspace/uv_candidate.fbx /app/workspace/candidate_unconnected.fbx; blender -b -t 6 --python /app/workspace/unwrap_export.py && blender -b -t 4 --python /app/workspace/verify_export.py && submit_score",
+        "receipt": "00:01.389  blend            | Read blend: \"/app/workspace/source.blend\"\nUNWRAPPED 5.105772018432617\nInfo: Saved as \"uv_work.blend\"\n\nFBX export starting... '/app/workspace/uv_candidate.fbx'\nexport finished in 0.0327 sec.\nExported 23358 triangles 11879 vertices custom normals True\nBlender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:32:04)\n\nBlender quit\nTraceback (most recent call last):\n  File \"/app/workspace/verify_export.py\", line 13, in <module>\n    print(json.dumps(report,indent=2));assert err<2e-6;assert normalerr<4e-4\n                                                              ^^^^^^^^^^^^^^\nAssertionError\nFBX version: 7400\n{\n  \"mesh\": \"SciFiHelmet\",\n  \"triangles\": 23358,\n  \"vertices\": 11879,\n  \"max_position_error_m\": 1.1920928955078125e-07,\n  \"max_corner_normal_error\": 0.005793832242488861,\n  \"has_custom_normals\": true,\n  \"uv_layer\": \"UVMap\",\n  \"uv_min\": [\n    0.01630512624979019,\n    0.015686145052313805\n  ],\n  \"uv_max\": [\n    0.9844971895217896,\n    0.9502895474433899\n  ],\n  \"bounds_min\": [\n    -1.151152491569519,\n    -1.2511277198791504,\n    -1.4587182998657227\n  ],\n  \"bounds_max\": [\n    1.151152491569519,\n    1.2511286735534668,\n    1.4587184190750122\n  ]\n}\nBlender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:32:04)\n\nBlender quit\n{\"score\":0.0,\"best_score\":0.0,\"is_best\":true,\"baseline\":false,\"submission_index\":2,\"remaining_submissions\":3}\n",
+        "toolCalls": 3,
+        "score": 0.0,
+        "index": 2
+      },
+      {
+        "command": "blender -b -t 6 --python /app/workspace/unwrap_export.py && blender -b -t 4 --python /app/workspace/verify_export.py && submit_score",
+        "receipt": "00:01.401  blend            | Read blend: \"/app/workspace/source.blend\"\nInfo: Saved as \"uv_work.blend\"\n\nFBX export starting... '/app/workspace/uv_candidate.fbx'\nexport finished in 0.0551 sec.\nExported 23358 triangles 11879 vertices custom normals True\nBlender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:32:04)\n\nBlender quit\nFBX version: 7400\n{\n  \"mesh\": \"SciFiHelmet\",\n  \"triangles\": 23358,\n  \"vertices\": 11879,\n  \"max_position_error_m\": 1.1920928955078125e-07,\n  \"max_corner_normal_error\": 0.0002827867865562439,\n  \"max_raw_normal_error\": 0.004332065582275391,\n  \"has_custom_normals\": true,\n  \"uv_layer\": \"UVMap\",\n  \"uv_min\": [\n    0.016056224703788757,\n    0.015557587146759033\n  ],\n  \"uv_max\": [\n    0.9293431043624878,\n    0.9844970703125\n  ],\n  \"bounds_min\": [\n    -1.151152491569519,\n    -1.2511277198791504,\n    -1.4587182998657227\n  ],\n  \"bounds_max\": [\n    1.151152491569519,\n    1.2511286735534668,\n    1.4587184190750122\n  ]\n}\nInfo: Saved as \"verified.blend\"\nBlender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:32:04)\n\nBlender quit\n{\"score\":0.0,\"best_score\":0.0,\"is_best\":true,\"baseline\":false,\"submission_index\":3,\"remaining_submissions\":2}\n",
+        "toolCalls": 17,
+        "score": 0.0,
+        "index": 3
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.021799,\"best_score\":0.021799,\"is_best\":true,\"baseline\":false,\"submission_index\":4,\"remaining_submissions\":1}\n",
+        "toolCalls": 6,
+        "score": 2.1799,
+        "index": 4
+      },
+      {
+        "command": "submit_score",
+        "receipt": "{\"score\":0.0,\"best_score\":0.021799,\"is_best\":false,\"baseline\":false,\"submission_index\":5,\"remaining_submissions\":0}\n",
+        "toolCalls": 2,
+        "score": 0.0,
+        "index": 5
+      }
+    ],
+    "model": "GPT-6.1 Sol",
+    "archive": "2026-11-13",
+    "audit": "verified"
+  }
+]

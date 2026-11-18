@@ -1,0 +1,251 @@
+/* A lighter canvas with stronger ink and distinct white surfaces. */
+:root {
+  --paper: #f6f8fc;
+  --ink: #1d2d44;
+  --ink-secondary: #405773;
+  --ink-muted: #526782;
+  --ink-accent: #315984;
+  --accent-strong: #2e507d;
+  --rule: #bacbdf;
+  --control-edge: #8ca3be;
+  --surface-tint: #eaf0f8;
+}
+
+html,
+body {
+  --bg: var(--paper);
+  --text: var(--ink);
+  --muted: var(--ink-muted);
+  --line: var(--rule);
+  --gold: var(--ink-accent);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.project-brand,
+.hero-c h2 b,
+.board-title h2,
+.category-sidebar h2,
+.atlas-heading h2,
+.notes-heading h2,
+.detail-heading h2,
+.measurement-heading h3 {
+  color: var(--ink);
+}
+
+.hero-c h2,
+.nav nav {
+  color: var(--ink-secondary);
+}
+
+.hero-c .project-authors,
+.hero-c .project-affiliations {
+  color: var(--ink-muted);
+}
+
+.hero-c .project-links a {
+  background: #fff;
+  color: var(--ink);
+  border-color: var(--control-edge);
+  box-shadow: 3px 4px 0 #b5c4d7;
+}
+
+.hero-c .project-links a:hover {
+  box-shadow: 4px 6px 0 #9db0cb;
+}
+
+.hero-c .project-links a:active {
+  box-shadow: 0 1px 0 #9db0cb;
+}
+
+.hero-c .project-links a:last-child {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+  box-shadow: 3px 4px 0 #1d3555;
+}
+
+.hero-c .project-links a:last-child:hover {
+  background: #23416a;
+}
+
+.hero-c .project-links > span {
+  opacity: 1;
+  background: #eef2f8;
+  border-color: #c3cedd;
+  color: #64748a;
+  box-shadow: 3px 4px 0 #cbd5e3;
+}
+
+.hero-c .project-links small {
+  color: #64748a;
+}
+
+.feature-stage::before {
+  background: linear-gradient(180deg, transparent, #e8eff8b3);
+}
+
+.feature-footer .case-picker,
+.carousel-controls button,
+.feature-card .gt-control,
+.feature-result .inspect-arrow {
+  border-color: var(--rule);
+}
+
+.feature-footer .case-picker > span:first-child,
+.feature-model,
+.carousel-controls .case-title,
+.atlas-case-score,
+.atlas-case-score strong small {
+  color: var(--ink-secondary);
+}
+
+.table-wrap,
+.category-chart,
+.atlas-case,
+.behavior-panel {
+  border-color: var(--rule);
+}
+
+.table-wrap thead th {
+  background: var(--surface-tint);
+  color: var(--ink);
+}
+
+.table-wrap thead th small,
+.table-notes,
+.board-title p,
+.score-legend,
+.category-intro,
+.category-scale,
+#category-description,
+.category-note,
+#category-options small {
+  color: var(--ink-muted);
+}
+
+.weighted-board tbody td.first-number,
+.category-score small {
+  color: var(--ink-secondary);
+}
+
+.feature-score,
+.atlas-case-score strong,
+.category-score strong,
+.weighted-board tbody td.final-number {
+  color: var(--accent-strong);
+}
+
+.legend-first,
+.score-first {
+  background: var(--accent-strong);
+}
+
+.legend-final,
+.score-final {
+  background: #8faacb;
+}
+
+.score-regression {
+  background: repeating-linear-gradient(135deg, var(--accent-strong) 0 2px, transparent 2px 5px);
+}
+
+.search {
+  border-color: var(--control-edge);
+}
+
+.search input::placeholder {
+  color: var(--ink-muted);
+  opacity: 1;
+}
+
+#atlas-browser .atlas-stage-detail,
+.chapter-number,
+.evaluation-summary,
+.evidence-intro,
+.measurement-row p,
+.measurement-footnote,
+.notes-heading > span,
+.notes-tabs button,
+.notes-card .notes-status,
+.notes-card footer span {
+  color: var(--ink-muted);
+}
+
+#evaluation .eval-panel,
+#evaluation .measurement-row {
+  border-color: var(--rule);
+}
+
+#evaluation .evidence-tabs button {
+  color: var(--ink-secondary);
+}
+
+#evaluation .evidence-tabs button[aria-pressed=true] {
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.measurement-number,
+.measurement-sketch,
+.chapter-icon,
+.evidence-tabs svg {
+  color: var(--ink-accent);
+}
+
+.notes-card {
+  background: var(--surface-tint);
+}
+
+#case-dialog {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--rule);
+}
+
+.detail-media,
+.detail-models button {
+  background: #fff;
+  border-color: var(--rule);
+}
+
+.detail-models button[aria-pressed=true] {
+  background: #e2ebf7;
+  border-color: #6383ae;
+}
+
+.detail-top,
+.detail-evaluation,
+.detail-metric,
+.detail-rule {
+  border-color: var(--rule);
+}
+
+.detail-score strong {
+  color: var(--accent-strong);
+}
+
+.detail-heading p,
+.detail-models b,
+.detail-pane-head,
+.detail-pane-head small,
+.detail-eyebrow,
+.detail-score span,
+.detail-first,
+.detail-rule,
+.detail-caption,
+.detail-metric p,
+.detail-provenance,
+.detail-note {
+  color: var(--ink-muted);
+}
+
+.detail-metric.loss summary b,
+.detail-check {
+  color: #805240;
+}
+
+footer {
+  background: var(--surface-tint);
+  border-color: var(--rule);
+  color: var(--ink-muted);
+}

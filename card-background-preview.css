@@ -1,0 +1,14 @@
+.feature-stage::before {
+  background:
+    radial-gradient(ellipse 70% 44% at 50% 78%, #d5e2f16b, transparent 100%),
+    linear-gradient(180deg, transparent 42%, #e8eff752 72%, #e8eff766);
+}
+
+#pipeline .atlas-case-object,
+#pipeline .atlas-case-object .atlas-case-image {
+  background: transparent;
+}
+
+#pipeline .atlas-case-object .atlas-case-copy {
+  background: #fff;
+}

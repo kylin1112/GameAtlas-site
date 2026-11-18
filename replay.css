@@ -1,0 +1,52 @@
+#agent-behavior{padding-top:56px;padding-bottom:64px}#agent-behavior>h2{font-size:clamp(36px,4vw,54px);margin-bottom:38px}#behavior-panel{display:grid;grid-template-columns:.85fr 1.15fr;border:0;background:transparent;border-radius:0;gap:48px;overflow:visible;align-items:center}.replay-chart{min-width:0;padding:18px 0}.replay-heading h3{font:400 clamp(25px,2.5vw,34px)/1.2 Georgia,serif;margin:0 0 14px;letter-spacing:-.02em}.replay-heading>span{font-size:13px;color:#7085a1}.replay-score{display:flex;gap:10px;align-items:baseline;margin:26px 0 14px}.replay-score strong{font:400 52px/1 Georgia,serif;letter-spacing:-.04em;color:#365b8c;font-variant-numeric:tabular-nums}.replay-score>span{font-size:12px;color:#8b9cb3}.replay-plot{width:100%;overflow:visible;display:block;margin:22px 0 16px}#replay-line{stroke:#527bb0;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}#replay-cursor{fill:#365b8c}.plot-baseline{stroke:#d1ddec;fill:none}.plot-dot{fill:#cedbeb}.dot-score{font:12px Arial;fill:#42658f;opacity:0;transition:opacity .3s}.dot-index{font:11px Arial;fill:#8a9db7}.replay-point{cursor:pointer;outline:none}.replay-point.reached .plot-dot{fill:#6f94c4}.replay-point.reached .dot-score,.replay-point:hover .dot-score,.replay-point:focus-visible .dot-score{opacity:1}.replay-point.selected .dot-index{fill:#294f81;font-weight:bold}.replay-point:focus-visible .plot-dot{stroke:#294f81;stroke-width:3}.replay-navigation{display:flex;align-items:center;gap:12px;padding:0 4px}.replay-navigation button{border:1px solid #c5d4e7;border-radius:50%;height:36px;width:36px;background:transparent;color:#48678d;cursor:pointer}.replay-navigation button:hover{background:#dce7f5}.replay-navigation button:focus-visible,.reference-peek:focus-visible{outline:2px solid #426590;outline-offset:4px}#replay-counter{margin-left:auto;font:12px ui-monospace,monospace;color:#6b83a3}.replay-progress{height:2px;background:#d5e0ed;margin:24px 4px 0;overflow:hidden}.replay-progress i{display:block;height:100%;background:#6a8ebc;width:0}.replay-film{min-width:0}.replay-frame{position:relative;aspect-ratio:1;overflow:hidden;border-radius:12px;background:#dce4ed;isolation:isolate}.replay-frame>#replay-before,.replay-frame>#replay-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.replay-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity .5s}#replay-region{fill:#d8eaff0a;stroke:#d9edff;stroke-width:1.5;stroke-dasharray:8 6}#replay-guides{fill:none;stroke:#cde5ff;stroke-width:1.2}.frame-label{position:absolute;top:17px;left:18px;padding:7px 11px;background:#24364bc9;border:1px solid #ffffff25;border-radius:20px;color:#f4f8ff;font-size:11px;backdrop-filter:blur(8px)}.reference-peek{position:absolute;top:16px;right:16px;width:92px;padding:0;border:1px solid #ffffff88;border-radius:7px;overflow:hidden;cursor:pointer;box-shadow:0 4px 15px #15213525;background:#25364b}.reference-peek img{display:block;width:100%;aspect-ratio:1;object-fit:cover}.reference-peek span{display:block;padding:5px;color:#fff;font-size:9px}.reference-peek.active{outline:2px solid white}.replay-caption{padding:20px 0 0}.replay-caption-top{display:flex;justify-content:space-between;align-items:center;gap:14px}.replay-caption h4{font-size:18px;font-weight:500;color:#304d72;margin:0}.replay-caption-top>span{font-size:11px;color:#788da8;white-space:nowrap}.replay-caption p{font-size:13px;line-height:1.6;color:#627c9c;margin:10px 0 12px}#replay-tools{display:flex;flex-wrap:wrap;gap:7px}#replay-tools span{font-size:10px;color:#56759d;padding:5px 8px;border:1px solid #ccdaeb;border-radius:4px}
+@media(max-width:850px){#behavior-panel{gap:26px;grid-template-columns:.9fr 1.1fr}.replay-heading h3{font-size:25px}.replay-score strong{font-size:44px}.replay-caption h4{font-size:16px}.reference-peek{width:68px}}
+@media(max-width:600px){#agent-behavior{padding-top:38px;padding-bottom:44px}#agent-behavior>h2{margin-bottom:22px;font-size:36px}#behavior-panel{grid-template-columns:1fr;gap:24px}.replay-chart{padding:0}.replay-heading h3{font-size:25px}.replay-heading>span{font-size:11px}.replay-score{margin:20px 0 0}.replay-score strong{font-size:40px}.replay-plot{max-height:220px;margin:0 0 8px}.replay-progress{margin-top:16px}.reference-peek{width:64px}.replay-caption-top{gap:8px}.replay-caption h4{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.replay-overlay,.dot-score{transition:none}}
+
+.replay-point{pointer-events:bounding-box}
+
+/* Balanced replay stage; action captions live inside the image. */
+#behavior-panel{align-items:stretch;grid-template-columns:.9fr 1.1fr;gap:44px}
+.replay-chart{display:flex;flex-direction:column;justify-content:center;padding:10px 0}
+.replay-film{display:flex;align-items:stretch;min-height:0}
+.replay-frame{width:100%;aspect-ratio:auto;min-height:480px;height:100%;background:#343a40}
+.replay-frame>#replay-before,.replay-frame>#replay-image{object-fit:contain}
+.replay-frame .replay-caption{position:absolute;z-index:2;top:60px;left:20px;right:126px;padding:14px 16px;border-radius:8px;background:linear-gradient(110deg,rgba(25,39,57,.91),rgba(25,39,57,.73));border:1px solid #b6cde72b;backdrop-filter:blur(10px);pointer-events:none}
+.replay-frame .replay-caption h4{color:#f1f6ff;font-size:17px;line-height:1.4}
+.replay-frame .replay-caption p{color:#d1dfef;font-size:12px;margin:7px 0 10px;line-height:1.6}
+.replay-frame .replay-caption-top{display:block}
+.replay-frame #replay-phase{display:none}
+.replay-frame #replay-tools span{color:#bdd3ee;border-color:#9cb9dc44;background:#b5cce80a;font-size:9px;padding:4px 6px}
+.replay-frame .replay-caption{transition:opacity .3s}
+.replay-frame:has(.reference-peek.active) .replay-caption{opacity:0}
+@media(min-width:851px){.replay-plot{max-height:290px}.replay-frame{min-height:0}.replay-chart{min-height:520px}.replay-score{margin-top:24px}.replay-heading h3{font-size:30px}}
+@media(max-width:850px) and (min-width:601px){#behavior-panel{gap:26px}.replay-frame{min-height:420px}.replay-frame .replay-caption{left:14px;right:14px;top:110px}.replay-frame .replay-caption h4{font-size:15px}}
+@media(max-width:600px){#behavior-panel{grid-template-columns:1fr;gap:24px}.replay-chart{display:block;padding:0}.replay-frame{aspect-ratio:1;min-height:0;height:auto}.replay-frame .replay-caption{top:auto;bottom:12px;left:12px;right:12px;padding:10px 12px}.replay-frame .replay-caption h4{font-size:14px}.replay-frame .replay-caption p{font-size:11px;margin:4px 0 7px}.replay-frame #replay-tools{gap:5px}.replay-frame #replay-tools span{font-size:8px;padding:3px 5px}}
+@media(prefers-reduced-motion:reduce){.replay-frame .replay-caption{transition:none}}
+
+/* Image-led annotations: no letterboxing or caption cards. */
+.replay-frame>#replay-before,.replay-frame>#replay-image{object-fit:cover}
+#replay-note{fill:#f1f7ff;font:500 17px Arial,sans-serif;paint-order:stroke;stroke:#263441;stroke-width:2.5px;stroke-linejoin:round}
+
+/* Keep the agent credit prominent at the upper right of the chart. */
+.replay-heading{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.replay-heading h3{font-size:clamp(23px,2.05vw,30px);margin:0;max-width:72%}
+.replay-heading>span{flex:none;font-size:clamp(16px,1.35vw,20px);line-height:1.4;font-weight:500;color:#3d5f88;white-space:nowrap;letter-spacing:-.02em}
+@media(max-width:850px) and (min-width:601px){.replay-heading{flex-wrap:wrap;gap:10px}.replay-heading h3{max-width:100%}.replay-heading>span{margin-left:auto}}
+@media(max-width:600px){.replay-heading{gap:12px}.replay-heading h3{font-size:22px;max-width:65%}.replay-heading>span{font-size:15px}}
+
+.replay-heading>.replay-agent{display:inline-flex;align-items:center;gap:9px}.replay-agent img{display:block;width:23px;height:23px;flex:none}@media(max-width:600px){.replay-heading>.replay-agent{gap:6px;font-size:14px}.replay-agent img{width:19px;height:19px}.replay-heading h3{max-width:61%}}
+
+.replay-agent .agent-brand-logo{display:block;width:26px;height:26px;flex:none;fill:#3d5f88}@media(max-width:600px){.replay-agent .agent-brand-logo{width:21px;height:21px}}
+
+/* Align task title and agent credit on a shared vertical center. */
+.replay-heading h3{line-height:1.2}
+
+/* Shared type scale for task and model credits. */
+.replay-heading{--credit-size:clamp(22px,1.8vw,28px);align-items:center;flex-wrap:wrap}
+.replay-heading h3,.replay-heading>.replay-agent{font-size:var(--credit-size);line-height:1.25;max-width:100%}
+.replay-heading>.replay-agent{margin-left:auto}
+.replay-agent .agent-brand-logo{width:1.15em;height:1.15em}
+.feature-model{display:inline-flex;align-items:center;gap:8px}
+.feature-model .agent-brand-logo{display:block;width:1.15em;height:1.15em;flex:none;fill:currentColor}
+@media(max-width:600px){.replay-heading{--credit-size:18px;gap:12px}.replay-heading>.replay-agent{font-size:var(--credit-size)}}

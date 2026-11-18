@@ -1,0 +1,96 @@
+/* Instant selection: no overlapping selected-state fades or hover movement. */
+#evaluation .evidence-tabs button,#evaluation .measurement-sketch{transition:none}
+#evaluation .measurement-row:hover .measurement-sketch{transform:none}
+#evaluation .measurement-heading{min-height:68px}
+.search input:focus,.search input:focus-visible{outline:none;box-shadow:none}
+.search:focus-within{border-bottom-color:#5279ad;box-shadow:0 1px 0 #5279ad}
+.model-notes{padding-top:52px;padding-bottom:80px;overflow:hidden}
+.notes-heading{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-bottom:30px}
+.notes-heading h2{font:400 clamp(30px,3vw,44px)/1.2 Georgia,serif;letter-spacing:-.025em;color:#27384f;margin:0}
+.notes-heading>span{font-size:12px;color:#7890ae}
+.notes-tabs{display:flex;gap:28px;overflow:auto;margin-bottom:24px;scrollbar-width:none}
+.notes-tabs button{flex:none;border:0;border-bottom:2px solid transparent;padding:10px 0;background:none;color:#8092ab;font:500 15px/1.4 var(--font);cursor:pointer}
+.notes-tabs button[aria-selected=true]{color:#314e76;border-color:#5279ad}
+.notes-tabs button:hover{color:#314e76}
+.notes-window{display:flex;gap:30px;overflow:hidden;align-items:stretch}
+.notes-card{flex:0 0 82%;min-width:0;border:1px solid #b6c9e1;border-top:3px solid #5279ad;background:#e1eaf6;padding:32px 36px 0;color:#2e4667}
+.notes-card .notes-status{font-size:11px;letter-spacing:.08em;color:#6b81a0;margin:0 0 20px}
+.notes-card .notes-copy{font:400 clamp(23px,2.25vw,32px)/1.5 Georgia,serif;letter-spacing:-.015em;margin:0;min-height:150px;max-width:850px;text-wrap:pretty}
+.notes-card footer{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid #b6c9e1;margin:30px -36px 0;padding:20px 36px;background:none;color:#486487;font-size:13px}
+.notes-card footer strong{font-weight:500;font-size:15px}.notes-card footer span{color:#7187a4;font-size:12px}
+.notes-peek{flex:0 0 66%;border:1px solid #c8d5e5;border-top:3px solid #a8bcd6;background:#e8eef7;text-align:left;padding:32px;color:#859bb8;cursor:pointer;opacity:.55;display:flex;flex-direction:column;gap:24px}
+.notes-peek strong{font:400 28px/1.3 Georgia,serif}.notes-peek span{font:400 25px/1.5 Georgia,serif;max-width:500px}.notes-peek small{font-size:12px;margin-top:auto}
+@media(max-width:600px){#evaluation .measurement-heading{min-height:116px}.model-notes{padding-top:32px;padding-bottom:48px}.notes-heading{align-items:start;margin-bottom:20px}.notes-heading>span{white-space:nowrap;padding-top:8px;font-size:10px}.notes-tabs{gap:22px}.notes-tabs button{font-size:13px}.notes-window{gap:14px}.notes-card{flex-basis:94%;padding:24px 22px 0}.notes-card .notes-copy{font-size:22px;min-height:220px}.notes-card footer{margin:24px -22px 0;padding:18px 22px;flex-wrap:wrap;gap:8px}.notes-peek{padding:24px 22px}}
+/* Centered carousel with neighboring cards on both sides. */
+.notes-window{display:block;position:relative;overflow:hidden}
+.notes-track{display:flex;align-items:stretch;gap:30px;position:relative;transition:transform .65s cubic-bezier(.22,.68,.18,1);will-change:transform}
+.notes-track.is-instant{transition:none}
+.notes-track .notes-card{flex:0 0 76%;opacity:.3;transition:opacity .65s ease,border-color .65s ease;cursor:pointer;display:flex;flex-direction:column}
+.notes-track .notes-card.is-current{opacity:1;cursor:default}
+.notes-track .notes-card footer{margin-top:auto}
+.notes-track .notes-copy{padding-bottom:30px}
+@media(max-width:600px){.notes-track{gap:14px}.notes-track .notes-card{flex-basis:86%}.notes-track .notes-copy{padding-bottom:24px}}
+@media(prefers-reduced-motion:reduce){.notes-track,.notes-track .notes-card{transition:none}}
+
+/* Taller, narrower cards with finite first and last positions. */
+.notes-track .notes-card{flex-basis:58%;min-height:430px}
+@media(max-width:850px){.notes-track .notes-card{flex-basis:76%;min-height:410px}}
+@media(max-width:600px){.notes-track .notes-card{flex-basis:86%;min-height:450px}}
+
+/* Consistent brand marks in both leaderboard views. */
+.model-identity{display:inline-flex;align-items:center;gap:10px;vertical-align:middle;line-height:1.4}
+.model-brand{width:22px;height:22px;object-fit:contain;flex:none}
+/* One step larger through the evaluation guide. */
+#evaluation .evidence-tabs button{font-size:14px}
+#evaluation .measurement-heading h3{font-size:clamp(28px,2.7vw,36px)}
+#evaluation .measurement-heading p{font-size:16px;max-width:440px}
+#evaluation .measurement-row h4{font-size:20px}
+#evaluation .measurement-row p{font-size:16px;line-height:1.7;max-width:500px}
+#evaluation .measurement-number{font-size:13px}
+@media(max-width:850px){#evaluation .measurement-row h4{font-size:18px}#evaluation .measurement-row p{font-size:15px}}
+@media(max-width:600px){.model-identity{gap:7px}.model-brand{width:18px;height:18px}#evaluation .evidence-tabs button{font-size:12px}#evaluation .measurement-heading p{font-size:15px}#evaluation .measurement-row h4{font-size:18px}#evaluation .measurement-row p{font-size:14px}}
+/* A more focused evaluation guide, with quiet per-rule interaction. */
+#evaluation .eval-panel{width:100%;max-width:1040px;margin-inline:auto;padding-top:20px}
+#evaluation .measurement-heading{min-height:58px;margin-bottom:8px;gap:28px}
+#evaluation .measurement-heading p{max-width:380px}
+#evaluation .measurement-row{grid-template-columns:26px minmax(190px,.85fr) minmax(240px,1.3fr) 126px;gap:18px;min-height:98px;padding:7px 10px;position:relative;transition:background-color .24s ease,border-color .24s ease}
+#evaluation .measurement-row h4{transition:color .24s ease,transform .24s ease}
+#evaluation .measurement-sketch{width:126px;height:84px;transition:transform .32s cubic-bezier(.2,.65,.3,1),color .24s ease}
+#evaluation .measurement-footnote{margin-top:20px}
+@media(hover:hover){
+ #evaluation .measurement-row:hover{background:#dfe9f580;border-bottom-color:#9bb4d4}
+ #evaluation .measurement-row:hover h4{color:#284f84;transform:translateX(3px)}
+ #evaluation .measurement-row:hover .measurement-sketch{transform:translateY(-2px) scale(1.045);color:#4b76ac}
+}
+@media(max-width:1100px) and (min-width:601px){#evaluation .measurement-row{grid-template-columns:24px minmax(150px,.85fr) minmax(190px,1.3fr) 104px;gap:14px}#evaluation .measurement-sketch{width:104px}}
+@media(max-width:600px){
+ #evaluation .eval-panel{padding-top:18px}
+ #evaluation .measurement-heading{min-height:110px;margin-bottom:6px}
+ #evaluation .measurement-heading p{max-width:none}
+ #evaluation .measurement-row{grid-template-columns:20px 1fr 82px;gap:7px 10px;min-height:120px;padding:14px 0}
+ #evaluation .measurement-sketch{width:82px;height:76px}
+}
+@media(prefers-reduced-motion:reduce){#evaluation .measurement-row,#evaluation .measurement-row h4,#evaluation .measurement-sketch{transition:none}#evaluation .measurement-row:hover h4,#evaluation .measurement-row:hover .measurement-sketch{transform:none}}
+
+/* Keep the divider aligned with the centered rules. */
+#evaluation .evidence-tabs{border-bottom:0;justify-content:center}
+#evaluation .eval-panel{border-top:1px solid #c6d4e6}
+@media(max-width:600px){#evaluation .measurement-heading{min-height:0;padding-bottom:12px}}
+
+.replay-agent .agent-brand-logo,.feature-model .agent-brand-logo{fill:#000000}
+
+/* Compact task cards with the same model identity used by the leaderboards. */
+#atlas-browser .atlas-case-copy h4{margin:0 0 18px}
+#atlas-browser .atlas-case-score .model-identity{gap:8px;font-size:12px;font-weight:600}
+#atlas-browser .atlas-case-score .model-brand{width:17px;height:17px}
+
+/* Titles sit above the image, with image-specific contrast treatment. */
+#atlas-browser .atlas-case-image{position:relative;overflow:hidden}
+#atlas-browser .atlas-case-title{position:absolute;z-index:1;inset:auto 0 0;margin:0;padding:32px 18px 17px;color:#27364b;font:500 18px/1.3 Arial,sans-serif;text-align:left;overflow-wrap:anywhere;pointer-events:none;letter-spacing:-.02em;background:linear-gradient(transparent,rgba(237,243,250,.85))}
+#atlas-browser .atlas-case-score{margin-top:0;padding-top:0;border-top:0}
+#atlas-browser .atlas-case-image>span{top:12px;bottom:auto;right:12px;z-index:2}
+#atlas-browser .atlas-case-scene .atlas-case-image{background:transparent}
+#atlas-browser .atlas-case-scene .atlas-case-image img{width:100%;height:100%;padding:0;object-fit:cover;display:block}
+#atlas-browser .atlas-case-scene .atlas-case-title{color:#fff;background:linear-gradient(transparent,rgba(12,22,37,.8));text-shadow:0 1px 3px #0005;padding-top:45px}
+#atlas-browser .atlas-case-object .atlas-case-title{inset:auto auto 14px 14px;max-width:calc(100% - 28px);padding:8px 12px;border:1px solid rgba(255,255,255,.8);border-radius:8px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);color:#324763;font:500 14px/1.35 Arial,sans-serif;letter-spacing:0;text-shadow:none;box-shadow:0 2px 10px rgba(40,62,90,.05)}
+@media(max-width:1050px){#atlas-browser .atlas-case-title{font-size:16px;padding-right:14px;padding-left:14px}}

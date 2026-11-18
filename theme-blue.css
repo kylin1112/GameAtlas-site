@@ -1,0 +1,97 @@
+
+:root{--bg:#edf2f9;--panel:#fcfdff;--text:#29394e;--muted:#748197;--line:#d5dde7;--gold:#5377a8}
+body{--bg:#edf2f9;--text:#29394e;--gold:#5377a8}
+.feature-card,.atlas-case,.category-chart,.eval-panel,.behavior-panel{background:#fcfdff;border-color:#d9e0e9}
+.feature-view,#case-viewer{background:radial-gradient(ellipse at 50% 62%,#e5ebf3 0%,#f0f3f7 55%,#fcfdff 90%)}
+.feature-result,.atlas-case-score{border-color:#d9e1eb}.feature-score,.atlas-case-score strong,.category-score strong,.weighted-board tbody td.final-number{color:#304e79}
+.feature-model,.case-title,.carousel-controls .case-title{color:#425770}.feature-bottom,.uv-reference-label,.uv-delivery-label,.mesh-gt-label,.mesh-output-label{color:#7c899b}
+.preview-tools button,.gt-control{background:#fbfcfee8;border-color:#d3dce8;color:#526a89}.gt-control input{accent-color:#5579a9}
+.case-dot{background:#d2dce9}.case-dot[aria-current=true]{background:#5278ae}
+.legend-first,.score-first{background:#456b9f}.legend-final,.score-final{background:#b5c9e5}.score-track{background:#eaf0f7}.score-regression{background:repeating-linear-gradient(135deg,#456b9f 0 2px,transparent 2px 5px)}
+.weighted-board tbody td.first-number,.category-score small{color:#6a83a4}
+#atlas-browser .atlas-stage:hover{background:#edf2f8}#atlas-browser .atlas-stage[aria-pressed=true]{background:#e3ebf6;color:#34547e}.chapter-icon{color:#6485b0}.chapter-number{color:#879ab2}
+.evidence-tabs button:hover{background:#eaf0f8}.evidence-tabs button[aria-pressed=true]{background:#3d5f93;color:#fff}.evidence-tabs svg{color:#6789b6}.evidence-tabs button[aria-pressed=true] svg{color:#dbe8fa}
+.evidence-eyebrow,.eval-process article>span{color:#577dab}.eval-visual{background:#eaf0f7}.behavior-receipt{background:#edf2f8}.behavior-receipt pre{background:#f8faff;color:#526881}
+.submission-picker button[aria-pressed=true]{background:#e0eaf7;border-color:#91acd0;color:#345781}.receipt-score strong{color:#385d8c}
+.behavior-chart svg line{stroke:#dce4ef}.behavior-chart svg polyline{stroke:#6286b7}.behavior-chart svg circle{fill:#789ac6}.behavior-chart svg circle[r="7"]{fill:#2f5995}.plot-label{fill:#8796aa}.plot-value{fill:#3c608f}
+#case-view-controls button[aria-pressed=true]{background:#3d5f93;border-color:#3d5f93;color:white}#case-view-controls input[type=range]{accent-color:#6288bb}
+button:focus-visible,a:focus-visible,summary:focus-visible,#atlas-browser .atlas-stage:focus-visible,#atlas-browser .atlas-case:focus-visible{outline-color:#7598c8}
+::selection{background:#d5e4f8;color:#223a60}
+
+/* Cool paper surfaces: one blue family from the hero through the results. */
+html,body{background:#edf2f9;color:#29394e}
+body{--bg:#edf2f9;--panel:#fff;--line:#d3ddeb;--muted:#66788f}
+.project-hero.hero-c{background:transparent}
+.hero-c h2{color:#566b84}.hero-c h2 b{color:#2e405b}
+.project-authors{color:#596e88}.project-affiliations{color:#778aa2}
+.table-wrap,.feature-card,.atlas-case,.category-chart,.eval-panel,.behavior-panel{background:#fff;border-color:#d3ddeb}
+.table-wrap thead,.table-wrap thead th{background:#e1eaf6;color:#526987}
+.table-wrap tbody tr{background:#fff}.table-wrap tbody tr:hover{background:#f3f7fc}
+.table-wrap td{border-color:#e1e8f2;color:#52647b}.table-wrap td:nth-child(2){color:#29394e}
+.feature-view{background:radial-gradient(ellipse at 50% 65%,#e6edf7 0%,#f5f8fc 58%,#fff 100%)}
+.feature-top,.feature-top button,.carousel-controls button{color:#536b8b}
+.carousel-controls button{border-color:#cbd7e7}
+.board-links,.table-notes,.board-title p,.score-legend{color:#657990}
+.board-links a,.board-links button{color:#56739a}
+.board-links .active,.board-links [aria-selected=true]{color:#315f9e}
+.search{background:transparent;border-color:#bbcce1}.search input{color:#3c5575}
+footer{background:#e4ecf7;border-color:#d3ddeb;color:#647b99}
+
+/* Open display plinths: give the stage to the asset. */
+.feature-grid{gap:26px}
+.feature-card{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.feature-stage{isolation:isolate}
+.feature-stage:before{content:"";position:absolute;z-index:-1;inset:70px 0 18px;background:linear-gradient(180deg,#f9fbfe00,#f9fbfeaa);border-radius:48% 48% 18px 18px}
+.feature-stage:after{content:"";position:absolute;z-index:-1;bottom:48px;left:17%;right:17%;height:26px;border-radius:50%;background:#244c8418;filter:blur(14px);pointer-events:none}
+.feature-card .feature-view{height:410px;background:transparent;overflow:visible}
+.feature-card .mesh-pair{padding-top:0;padding-bottom:38px}
+.feature-card .uv-feature{padding-top:0}
+.feature-footer{position:relative;padding:0 8px 8px}
+.feature-footer .case-picker{position:static;height:auto;min-height:34px;padding:3px 0;display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #cad7e8;background:none}
+.feature-footer .case-picker>span:first-child{font-size:10px;color:#6b809b}
+.feature-result{border-top:0;padding:10px 0}
+.feature-bottom>span{font-size:8px}
+.switch-status{top:10px}
+.carousel-controls .case-title{max-width:150px}
+@media(max-width:1100px){.feature-grid{gap:16px}.feature-card .feature-view{height:370px}.feature-footer .case-picker{flex-wrap:wrap}.carousel-controls .case-title{font-size:9px}}
+@media(max-width:600px){.feature-grid{gap:36px}.feature-card .feature-view{height:390px}.feature-footer .case-picker{flex-wrap:nowrap}.feature-footer{padding:0 4px 8px}}
+
+#feature-animation{width:calc(100% + 24px);margin-left:-12px;max-width:none}
+#feature-animation canvas{max-width:none}
+
+/* Quiet previews, explicit interactive score rows. */
+.feature-card .preview-tools{bottom:30px;left:14px;right:auto}
+.feature-card .gt-control{background:#ffffffd9;border:1px solid #dae4f0;box-shadow:0 2px 8px #2a4c7610;padding:6px 9px}
+.feature-result{position:relative;border-radius:10px;padding:13px 10px;margin:3px -10px;width:calc(100% + 20px);transition:background .18s ease,box-shadow .18s ease,transform .18s ease}
+.feature-result .feature-model{transition:color .18s ease}
+.feature-result .inspect-arrow{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;border:1px solid #b9cce2;color:#5379ab;background:#f8fbff99;transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease}
+.feature-result:hover,.feature-result:focus-visible{background:#ffffffd9;box-shadow:0 6px 20px #23446d0d;transform:translateY(-2px)}
+.feature-result:hover .feature-model,.feature-result:focus-visible .feature-model{color:#294e80}
+.feature-result:hover .inspect-arrow,.feature-result:focus-visible .inspect-arrow{background:#3d5f93;border-color:#3d5f93;color:white;transform:translate(2px,-2px)}
+.feature-result:active{transform:translateY(0);box-shadow:none}
+.feature-bottom{justify-content:flex-end;min-height:12px}
+@media(prefers-reduced-motion:reduce){.feature-result,.feature-result .feature-model,.feature-result .inspect-arrow{transition:none}.feature-result:hover,.feature-result:focus-visible,.feature-result:hover .inspect-arrow,.feature-result:focus-visible .inspect-arrow{transform:none}}
+
+/* Compact leaderboard heading and a single utility row. */
+#benchmark{padding-bottom:44px}
+#leaderboard{padding-top:44px}
+#leaderboard .board-title{margin-bottom:24px}
+#leaderboard .board-title h2{margin-bottom:0}
+.board-toolbar{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 20px}
+.board-toolbar .score-legend{margin:0;display:flex;align-items:center;gap:24px}
+.board-toolbar .search{margin:0;align-self:auto}
+.weighted-board .score-axis{display:table-cell}
+.weighted-board thead th{padding-top:19px;padding-bottom:19px}
+.weighted-board tbody tr{transition:background .18s ease}
+.weighted-board tbody tr:hover{background:#eaf1fb}
+@media(max-width:600px){.board-toolbar{gap:14px;flex-wrap:wrap}.board-toolbar .score-legend{gap:18px}.board-toolbar .search{margin-left:auto}#leaderboard{padding-top:32px}}
+
+/* Give workflow sections a measured pause, with a shared neutral asset stage. */
+#category-leaderboards{padding-bottom:44px}
+#pipeline{padding-top:44px}
+#pipeline .atlas-heading{margin-bottom:38px}
+#pipeline .atlas-heading h2{margin:0}
+#pipeline .atlas-category-heading{margin-bottom:24px;min-height:0}
+#pipeline .atlas-case-image{background:#edf3fa}
+#pipeline .atlas-case-image img{object-fit:contain;background:transparent;padding:12px}
+@media(max-width:600px){#category-leaderboards{padding-bottom:32px}#pipeline{padding-top:32px}}

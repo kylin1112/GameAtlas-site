@@ -1,0 +1,114 @@
+[
+  {
+    "source": "assets/features/animation-ronin-stow-v1/colored.glb",
+    "preview": "assets/fast/animation-ronin-stow-v1/delivery.glb",
+    "original": 5419772,
+    "optimized": 1813104,
+    "transfer": 1124885,
+    "source_sha256": "4d4132e44c980e1383addd446abccaaf65051ea1f2f441b082ea212389f2c217"
+  },
+  {
+    "source": "assets/features/animation-ronin-stow-v1/gt-animated.glb",
+    "preview": "assets/fast/animation-ronin-stow-v1/reference.glb",
+    "original": 3088536,
+    "optimized": 543340,
+    "transfer": 210992,
+    "source_sha256": "ceb6b725d60ea355a08d149b437b413103eecbf368e83f4fbd664d5a24ef46da"
+  },
+  {
+    "source": "assets/features/animation-expert-01-v1/colored.glb",
+    "preview": "assets/fast/animation-expert-01-v1/delivery.glb",
+    "original": 16485292,
+    "optimized": 4497064,
+    "transfer": 3704603,
+    "source_sha256": "3d9b7e75e41cfa81076d5dd19326aab2bc48e44f41e0b9e83f753aa1902a7c65"
+  },
+  {
+    "source": "assets/features/animation-expert-01-v1/gt-animated.glb",
+    "preview": "assets/fast/animation-expert-01-v1/reference.glb",
+    "original": 29478300,
+    "optimized": 1326876,
+    "transfer": 738108,
+    "source_sha256": "453888d2e241cb8052f4774b21b86749a0e3c79821b81fc73305a5d42b0afd1c"
+  },
+  {
+    "source": "assets/features/animation-titan-rocket-punch-v1/colored.glb",
+    "preview": "assets/fast/animation-titan-rocket-punch-v1/delivery.glb",
+    "original": 4700788,
+    "optimized": 1619820,
+    "transfer": 1033928,
+    "source_sha256": "7a67a1080fe2907ddae1193e911fbed43ca791c3c650f3b59de03ee1c037dc84"
+  },
+  {
+    "source": "assets/features/animation-titan-rocket-punch-v1/gt-animated.glb",
+    "preview": "assets/fast/animation-titan-rocket-punch-v1/reference.glb",
+    "original": 2567040,
+    "optimized": 436132,
+    "transfer": 166811,
+    "source_sha256": "3b2c215efda321361b5a5819904b740232e1d0721418b5c7ae2f9560503fb25c"
+  },
+  {
+    "source": "assets/features/animation-expert-10-v1/colored.glb",
+    "preview": "assets/fast/animation-expert-10-v1/delivery.glb",
+    "original": 45515268,
+    "optimized": 13568608,
+    "transfer": 9578446,
+    "source_sha256": "94cea1a7c87de3ec1b410044e306fe959fc22d9f124b12f32556691b439f4182"
+  },
+  {
+    "source": "assets/features/animation-expert-10-v1/gt-animated.glb",
+    "preview": "assets/fast/animation-expert-10-v1/reference.glb",
+    "original": 16506524,
+    "optimized": 6005728,
+    "transfer": 2372835,
+    "source_sha256": "bfdd49889c78f62472ebb609c21311d973d3457e935ecccbb5e676e3ccbdbda0"
+  },
+  {
+    "source": "assets/cases/case-0-sol.glb",
+    "preview": "assets/fast/nailong.glb",
+    "original": 7146208,
+    "optimized": 6352336,
+    "transfer": 2518036,
+    "source_sha256": "cfd793d5b115b8f325cac49556df730d04d37bd025d9019b8ff37fb79383c211"
+  },
+  {
+    "source": "assets/cases/mesh-i2m-expert-03-v1-sol.glb",
+    "preview": "assets/fast/ironman.glb",
+    "original": 24676644,
+    "optimized": 21934968,
+    "transfer": 8412487,
+    "source_sha256": "58039bca3750e270882cd86dba88fd8a7125d1c970b1a02ef6b8b47689609477"
+  },
+  {
+    "source": "assets/cases/mesh-i2m-expert-59-v1-sol.glb",
+    "preview": "assets/fast/nier.glb",
+    "original": 4242688,
+    "optimized": 3770976,
+    "transfer": 1469422,
+    "source_sha256": "90099e8752cb62ab424d433db5244b457ed40e6728f6ef9eac519fd8f1ea4342"
+  },
+  {
+    "source": "assets/cases/case-2-sol.glb",
+    "preview": "assets/fast/uv-delivery.glb",
+    "original": 2523668,
+    "optimized": 284236,
+    "transfer": 184118,
+    "source_sha256": "50fa6d44c351229eb993df03c19e0f3dc6b80608ee62d82418e32a3e719c1c54"
+  },
+  {
+    "source": "assets/cases/uv-008-input.glb",
+    "preview": "assets/fast/uv-input.glb",
+    "original": 1963192,
+    "optimized": 284436,
+    "transfer": 184224,
+    "source_sha256": "760b856274cc5b81ea26858bf82168b1f4ed79ee66c8e808d8e1e72ebe7d2041"
+  },
+  {
+    "source": "assets/cases/nailong-textured-reference.glb",
+    "preview": "assets/fast/nailong-reference.glb",
+    "original": 1112596,
+    "optimized": 638220,
+    "transfer": 459722,
+    "source_sha256": "4829106dd2f557d6adff7f77087e9be038f384d0214c9a90f9754b086dff52e7"
+  }
+]

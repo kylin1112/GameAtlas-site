@@ -1,0 +1,1 @@
+{"model":"hy4","task":"sceneactbench-layout-localpool-banana-hssd-105515151-173104068","available":true,"modelFile":"delivery.glb.gz","animated":false,"evaluation":{"metrics":[{"id":"delivery","score":null}],"deductions":[],"checks":["no predicted object roots"],"summary":"Geometric mean of spatial quality, adjusted by delivery and integrity checks.","version":"W5T2_final_2cm"}}

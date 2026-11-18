@@ -1,0 +1,26 @@
+[
+  {
+    "task": "animation-ronin-stow-v1",
+    "source": "omni-board91/nov13/fix/matched/sol/animation-ronin-stow-v1/solution.blend",
+    "sha256": "373b25938d9a820f92d95ddf04ab723945edd03248548321d555f61eede8c492",
+    "export": "GLB with original materials; static presentation props excluded from expert-character previews"
+  },
+  {
+    "task": "animation-expert-01-v1",
+    "source": "omni-board91/nov13/fix/matched/sol/animation-expert-01-v1/solution.blend",
+    "sha256": "554a7e5b4dd5a7f090d21bcf6a57d64281df03f6af600b2ea40cbba0773815ec",
+    "export": "GLB with original materials; static presentation props excluded from expert-character previews"
+  },
+  {
+    "task": "animation-titan-rocket-punch-v1",
+    "source": "omni-board91/nov13/fix/matched/sol/animation-titan-rocket-punch-v1/solution.blend",
+    "sha256": "00183394b3c6eedbecf64c21341d206190caed7aca0ab0b67a99ecefd31f37f2",
+    "export": "GLB with original materials; static presentation props excluded from expert-character previews"
+  },
+  {
+    "task": "animation-expert-10-v1",
+    "source": "omni-board91/nov13/fix/matched/sol/animation-expert-10-v1/solution.blend",
+    "sha256": "d33b8466119c02712c59981ab3199dd39f5004c7231e1927abdd6d98b8461753",
+    "export": "GLB with original materials; static presentation props excluded from expert-character previews"
+  }
+]

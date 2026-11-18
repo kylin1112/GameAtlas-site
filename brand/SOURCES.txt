@@ -1,0 +1,2 @@
+Model brand SVG marks: https://github.com/lobehub/lobe-icons/tree/master/packages/static-svg/icons
+Original color variants; OpenAI, Grok and Z.ai use their black marks.

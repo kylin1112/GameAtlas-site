@@ -1,0 +1,15 @@
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+function free(scene){scene.traverse(o=>{o.geometry?.dispose();(o.material?Array.isArray(o.material)?o.material:[o.material]:[]).forEach(m=>{Object.values(m).forEach(v=>{if(v?.isTexture)v.dispose()});m.dispose()})})}
+export async function mountInput(host,url,stale){
+ const gltf=await new GLTFLoader().loadAsync(url);if(stale()){free(gltf.scene);return null}
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor(0,0);host.replaceChildren(renderer.domElement);const canvas=renderer.domElement;canvas.setAttribute('aria-label','Interactive 3D asset. Drag to orbit and scroll to zoom.');canvas.style.touchAction='none';
+ const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(36,1,.01,100);scene.add(new THREE.HemisphereLight(0xe6f6ff,0x596063,2.2));const key=new THREE.DirectionalLight(0xfff0de,2.8);key.position.set(3,5,5);scene.add(key);const rim=new THREE.DirectionalLight(0xaacbd6,1.6);rim.position.set(-4,2,-2);scene.add(rim);
+ const model=gltf.scene,bounds=new THREE.Box3().setFromObject(model),center=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3());model.position.sub(center);const pivot=new THREE.Group();pivot.add(model);pivot.scale.setScalar(2.5/Math.max(size.x,size.y,size.z));scene.add(pivot);
+ let theta=.3,phi=1.2,distance=5.2,alive=true,drag=false,x=0,y=0;const original=new Map();model.traverse(o=>{if(o.isMesh)original.set(o,o.material)});
+ function draw(){if(!alive)return;camera.position.set(distance*Math.sin(phi)*Math.sin(theta),distance*Math.cos(phi),distance*Math.sin(phi)*Math.cos(theta));camera.lookAt(0,0,0);renderer.render(scene,camera)}
+ function resize(){const w=Math.max(host.clientWidth,1),h=Math.max(host.clientHeight,1);renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();draw()}const observer=new ResizeObserver(resize);observer.observe(host);resize();
+ const down=e=>{drag=true;x=e.clientX;y=e.clientY;canvas.setPointerCapture(e.pointerId)},move=e=>{if(!drag)return;theta-=(e.clientX-x)*.008;phi=Math.max(.1,Math.min(Math.PI-.1,phi+(e.clientY-y)*.008));x=e.clientX;y=e.clientY;draw()},up=()=>drag=false,wheel=e=>{e.preventDefault();distance=Math.max(1.6,Math.min(14,distance*Math.exp(e.deltaY*.001)));draw()};canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);canvas.addEventListener('wheel',wheel,{passive:false});
+ const wire=new THREE.MeshBasicMaterial({color:0xe2bd77,wireframe:true});
+ return {wireframe(on){original.forEach((m,o)=>o.material=on?wire:m);draw()},reset(){theta=.3;phi=1.2;distance=5.2;draw()},dispose(){alive=false;observer.disconnect();original.forEach((m,o)=>o.material=m);wire.dispose();free(scene);renderer.dispose();renderer.forceContextLoss()}};
+}
