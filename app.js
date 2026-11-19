@@ -39,8 +39,10 @@ document.querySelector('#table-head').addEventListener('click',event=>{
 function scoreNumber(value){return Number.isFinite(value)?value.toFixed(2):'—'}
 function scoreBar(first,final,name){
  if(!Number.isFinite(final))return `<div class="score-track" role="img" aria-label="${name}: pending selected runs"></div>`;
- const knownFirst=Number.isFinite(first),lower=knownFirst?Math.min(first,final):0;
- return `<div class="score-track" role="img" aria-label="${name}: first submission average ${scoreNumber(first)}, final score average ${scoreNumber(final)}" title="First submission Avg ${scoreNumber(first)} · Final score Avg ${scoreNumber(final)}"><span class="score-final" style="width:${final}%"></span>${knownFirst?`<span class="score-first" style="width:${lower}%"></span>`:''}${knownFirst&&first>final?`<span class="score-regression" style="left:${final}%;width:${first-final}%"></span>`:''}</div>`;
+ const firstBar=Number.isFinite(first)?`<span class="score-first" style="width:${first}%"></span>`:'';
+ const finalBar=`<span class="score-final" style="width:${final}%"></span>`;
+ const layers=first>final?firstBar+finalBar:finalBar+firstBar;
+ return `<div class="score-track" role="img" aria-label="${name}: first submission average ${scoreNumber(first)}, final score average ${scoreNumber(final)}" title="First submission Avg ${scoreNumber(first)} · Final score Avg ${scoreNumber(final)}">${layers}</div>`;
 }
 // Reveal each row once as it enters view; retain the exact final scores.
 const scoreObservers=new Map();
@@ -82,15 +84,23 @@ document.querySelector('#model-search').addEventListener('input',render);render(
 
 const categoryOptions=document.querySelector('#category-options');
 categoryOptions.innerHTML=disciplines.map(([name,count,desc,path],i)=>`<button type="button" aria-pressed="${i===0}" data-category="${i}"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="${path}"/></svg><span>${name}</span><small>${count}</small></button>`).join('');
-const categorySort=document.querySelector('#category-sort');
-let currentCategory=0;
-categorySort.addEventListener('change',()=>selectCategory(currentCategory));
+const categoryHeaders=document.querySelectorAll('[data-category-sort]');
+let currentCategory=0,categoryMetric='final';
+categoryHeaders.forEach(button=>button.addEventListener('click',()=>{
+ categoryMetric=button.dataset.categorySort;
+ selectCategory(currentCategory);
+}));
 function selectCategory(index){
  currentCategory=index;
- const scores=categorySort.value==='first'?'categoryFirst':'categories';
+ const scores=categoryMetric==='first'?'categoryFirst':'categories';
+ categoryHeaders.forEach(button=>{
+  const active=button.dataset.categorySort===categoryMetric;
+  button.setAttribute('aria-pressed',String(active));
+  button.querySelector('span').textContent=active?'↓':'↕';
+ });
  const [name,count,desc]=disciplines[index];
  document.querySelector('#category-title').textContent=name;
- document.querySelector('#category-leaderboards .category-note').textContent='Selected-run averages · First submission / Final score. Average of two or three selected runs. Pending scores await the selected runs.'+ (models.some(m=>Number.isFinite(m.categoryFirst[index])&&Number.isFinite(m.categories[index])&&m.categoryFirst[index]>m.categories[index])?' Hatched segments indicate a decrease from the first submission.':'');
+
  categoryOptions.querySelectorAll('button').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
  document.querySelector('#category-bars').innerHTML=[...models].sort((a,b)=>descendingScore(a[scores][index],b[scores][index])).map(model=>{const score=model.categories[index],first=model.categoryFirst[index];return `<div class="category-bar-row"><span class="category-model">${modelIdentity(model.name)}</span>${scoreBar(first,score,model.name)}<span class="category-score"><small>${scoreNumber(first)}</small><strong>${scoreNumber(score)}</strong></span></div>`}).join('');
  animateScores(document.querySelector('#category-bars'),'.category-bar-row');
