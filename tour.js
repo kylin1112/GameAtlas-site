@@ -18,7 +18,7 @@ function evaluation(e){if(!e){$('.detail-report').innerHTML=`<p class="detail-ru
 function modelButtons(){const s=cases[index];$('.detail-models').innerHTML=data.models.map(m=>`<button data-model="${esc(m.id)}" aria-pressed="${model===m.id}">${modelIdentity(esc(m.name))}<b>${num(data.tasks[s.id]?.[m.id]?.score)}</b></button>`).join('');$('.detail-models').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(model===b.dataset.model)return;model=b.dataset.model;rung=null;modelButtons();score();media()});}
 async function media(){stop();const v=version,s=cases[index],left=$('#input-media'),right=$('#output-media'),stale=()=>v!==version||!dialog.open;$('.detail-controls').replaceChildren();$('#input-views').replaceChildren();$('#output-views').replaceChildren();left.innerHTML=right.innerHTML='<span class="detail-loading">Preparing preview</span>';$('.detail-caption').textContent='';$('.detail-report').innerHTML='<p class="detail-rule">Loading evaluation evidence…</p>';
  try{
- catalogPromise??=fetch('case-assets/catalog.json?v=workflow1', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
+ catalogPromise??=fetch('case-assets/catalog.json?v=showcase3124', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
  const catalog=await catalogPromise;if(stale())return;
  const record=catalog.find(x=>x.model===model&&x.task===s.id)||{},path=base(),refbase=`case-assets/references/${s.id}/`;
  let active=record;
@@ -50,7 +50,7 @@ async function media(){stop();const v=version,s=cases[index],left=$('#input-medi
   if(record.uvImage)image(right,path+record.uvImage,'Submitted UV layout');
   else empty(right,'UV layout unavailable');
  }else if(!output){if(active.image)image(right,path+active.image,'Model delivery');else if(!record.motion)empty(right,Number.isFinite(selected().score)?'No viewable delivery':'Run in progress',Number.isFinite(selected().score)?'The recorded score is retained.':'The artifact will appear after this run completes.');}
- if(input){const name=input.split('/').pop();if(['retopo-003-input.glb','case-4-reference.glb','mesh-retopo-004-r04-input.glb'].includes(name))input='case-assets/shared/'+name+'.gz';}if(input||output||animation){const m=await import('./vendor/public-viewer.js?v=mesh-pair1');if(stale())return;const mounted=await m.pair({left,right,input,output,animation,id:s.id,motion:record.motion?path+record.motion:null,stale,onTime:f=>{const timeline=$('#detail-timeline');if(timeline)timeline.value=Math.round(f*1000)}});if(stale()){mounted?.dispose();return;}api=mounted;}
+ if(input){const name=input.split('/').pop();if(['retopo-003-input.glb','case-4-reference.glb','mesh-retopo-004-r04-input.glb'].includes(name))input='case-assets/shared/'+name+'.gz';}if(input||output||animation){const m=await import('./vendor/public-viewer.js?v=showcase3124');if(stale())return;const mounted=await m.pair({left,right,input,output,animation,id:s.id,motion:record.motion?path+record.motion:null,stale,onTime:f=>{const timeline=$('#detail-timeline');if(timeline)timeline.value=Math.round(f*1000)}});if(stale()){mounted?.dispose();return;}api=mounted;}
  if(api){
   if(api.referenceColors){$('#delivery-note').textContent='Reference-colored preview';$('#delivery-note').title='Ground-truth colors mapped onto the submitted geometry for display.';}
   if(retopo)api.material('wire');
@@ -60,12 +60,12 @@ async function media(){stop();const v=version,s=cases[index],left=$('#input-medi
  $('.detail-caption').textContent=animation||mesh||uv||s.stage===3||s.stage===5?'':(s.stage===4?'Submitted camera preview · camera geometry is scored; lighting is not.':'Input and recorded delivery.');
  }catch(e){if(stale())return;console.warn('Case detail',e);empty(right,'Preview could not be loaded','The recorded score remains available.');if(left.querySelector('.detail-loading'))empty(left,'Reference preview unavailable');}
 }
-function show(i){stop();index=(i+cases.length)%cases.length;rung=null;const s=cases[index];dialog.classList.toggle('paired-detail',s.id.startsWith('animation-')||s.id.startsWith('mesh-i2m-')||s.id.startsWith('mesh-uv-')||s.id.startsWith('mesh-retopo-'));$('#detail-category').textContent=s.name==='UV'?'UV unwrapping':s.name==='Mesh'?'Image-to-mesh':s.name;$('#case-name').textContent=s.case;$('#detail-brief').textContent=s.short;modelButtons();score();media();dialog.scrollTop=0;}
+function show(i){stop();index=(i+cases.length)%cases.length;rung=null;const s=cases[index];model=s.display.model;dialog.classList.toggle('paired-detail',s.id.startsWith('animation-')||s.id.startsWith('mesh-i2m-')||s.id.startsWith('mesh-uv-')||s.id.startsWith('mesh-retopo-'));$('#detail-category').textContent=s.name==='UV'?'UV unwrapping':s.name==='Mesh'?'Image-to-mesh':s.name;$('#case-name').textContent=s.case;$('#detail-brief').textContent=s.short;modelButtons();score();media();dialog.scrollTop=0;}
 let entryCases=[];
 function step(delta){
  const at=entryCases.indexOf(index), count=entryCases.length;
  if(count>1)show(entryCases[(at+delta+count)%count]);
 }
-mountShell();window.openAtlasCase=(i,button,sequence)=>{entryCases=Array.isArray(sequence)&&sequence.includes(i)?sequence.filter(n=>cases[n]):[i];opener=button;if(!dialog.open)dialog.showModal();document.body.classList.add('case-open');model='gpt-6.1-sol';show(i);$('#case-close').focus()};
+mountShell();window.openAtlasCase=(i,button,sequence)=>{entryCases=Array.isArray(sequence)&&sequence.includes(i)?sequence.filter(n=>cases[n]):[i];opener=button;if(!dialog.open)dialog.showModal();document.body.classList.add('case-open');show(i);$('#case-close').focus()};
 dialog.addEventListener('close',()=>{if(dialog.open)return;stop();document.body.classList.remove('case-open');opener?.focus()});dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});dialog.addEventListener('keydown',e=>{if(['INPUT','VIDEO','SELECT'].includes(e.target.tagName))return;if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}if(e.key==='ArrowRight'){e.preventDefault();step(1)}});
 })();

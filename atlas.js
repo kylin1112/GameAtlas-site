@@ -3,10 +3,15 @@ const chapters=[['Image-to-mesh','Shape the asset','References → geometry',c=>
 const rail=document.querySelector('#atlas-stages'),grid=document.querySelector('#atlas-cases'),icons=[...document.querySelectorAll('#category-options svg')];
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 rail.innerHTML=chapters.map(([name,,desc],i)=>`<button type="button" class="atlas-stage" data-chapter="${i}" aria-pressed="false" aria-controls="atlas-cases"><span class="chapter-icon">${icons[i].outerHTML}</span><span class="atlas-stage-label">${name}</span><span class="atlas-stage-detail">${desc}</span><span class="chapter-number">${String(i+1).padStart(2,'0')}</span></button>`).join('');
+const meshCards=['mesh-i2m-expert-03-v1','mesh-i2m-expert-59-v1','mesh-i2m-nailong-v1','mesh-i2m-expert-60-v1','mesh-i2m-expert-42-v1','mesh-i2m-vanguard-v1'];
+const animationCards=['animation-expert-10-v1','animation-expert-01-v1','animation-expert-13-v1','animation-ronin-stow-v1','animation-seraph-wing-deploy-v1','animation-expert-72-v1'];
 let active=-1;
-function select(index){if(index===active)return;active=index;rail.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));const [name,title,desc,filter]=chapters[index];const cases=window.GAMEATLAS_TOUR.map((c,i)=>({c,i})).filter(({c})=>filter(c)).slice(0,index<6?6:Infinity);grid.innerHTML=cases.map(({c,i},n)=>{const rendering=c.stage===5, model=window.GAMEATLAS_CASE_DATA.models.find(m=>m.id==='gpt-6.1-sol');
- const r=rendering?{name:model.name,score:window.GAMEATLAS_CASE_DATA.tasks[c.id]?.[model.id]?.score}:c.results?.[0];
- const cover=rendering?`assets/card-renders/${c.id}.webp`:c.cardImage||'assets/cases/'+c.image;
+function select(index){if(index===active)return;active=index;rail.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));const [name,title,desc,filter]=chapters[index];const entries=window.GAMEATLAS_TOUR.map((c,i)=>({c,i}));
+ const order=index===0?meshCards:index===3?animationCards:null;
+ const cases=order?order.map(id=>entries.find(({c})=>c.id===id)):entries.filter(({c})=>filter(c)).slice(0,index<6?6:Infinity);grid.innerHTML=cases.map(({c,i},n)=>{const rendering=c.stage===5,selected=c.display;
+ const model=window.GAMEATLAS_CASE_DATA.models.find(m=>m.id===selected.model);
+ const r={name:model.name,score:window.GAMEATLAS_CASE_DATA.tasks[c.id][model.id].score};
+ const cover=c.stage>=4?`case-assets/${model.id}/${c.id}/${selected.image}`:c.cardImage||'assets/cases/'+c.image;
  return `<button type="button" class="atlas-case ${index>=4?'atlas-case-scene':'atlas-case-object'}" data-atlas-case="${i}" style="--reveal-delay:${n*35}ms" aria-label="Explore ${escape(c.case)}"><div class="atlas-case-image"><img src="${escape(cover+(c.name==='UV'?'?v=textured1':''))}" alt="${escape(c.case)}" loading="lazy">${rendering?`<img class="render-reference" src="assets/card-renders/${escape(c.id)}-gt.webp" loading="lazy" alt=""><span>Ground truth</span>`:'<span>Explore ↗</span>'}</div><div class="atlas-case-copy"><div class="atlas-case-score">${modelIdentity(escape(r?.name||'Reference'))}<strong>${Number.isFinite(r?.score)?r.score.toFixed(1)+' <small>/ 100</small>':'View reference'}</strong></div></div></button>`}).join('');}
 grid.addEventListener('click',e=>{const b=e.target.closest('[data-atlas-case]');if(b&&grid.contains(b))window.openAtlasCase(+b.dataset.atlasCase,b,Array.from(grid.querySelectorAll("[data-atlas-case]"),item=>Number(item.dataset.atlasCase)))});
 rail.addEventListener('click',e=>{const b=e.target.closest('[data-chapter]');if(b)select(+b.dataset.chapter)});

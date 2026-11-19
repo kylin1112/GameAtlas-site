@@ -78,17 +78,21 @@ function referencePalette(root) {
   palettes.set(root, end ? colors : null);
   return palettes.get(root);
 }
-export function colorBareDelivery(reference, root) {
+export function colorBareDelivery(reference, root, {colorUniformSurface = false} = {}) {
   const meshes = [];
   root.traverse(o => { if (o.isMesh) meshes.push(o); });
-  if (!meshes.length || meshes.some(m => {
-    const mat = m.material, c = mat.color;
-    return mat.map || mat.vertexColors || mat.emissiveMap || !c ||
-      Math.min(c.r,c.g,c.b) < .32 || Math.max(c.r,c.g,c.b)-Math.min(c.r,c.g,c.b) > .03;
-  })) return null;
-  // Preserve deliberately contrasting grayscale materials as well.
-  const levels = meshes.map(mesh => mesh.material.color.r);
-  if (levels.some(level => Math.abs(level - levels[0]) > .08)) return null;
+  if (!meshes.length) return null;
+  const materials = meshes.map(mesh => mesh.material);
+  if (materials.some(mat => mat.map || mat.vertexColors || mat.emissiveMap || !mat.color)) return null;
+  const first = materials[0].color;
+  const uniform = materials.every(({color}) => color.equals(first));
+  if (!(colorUniformSurface && uniform)) {
+    const authoredColor = materials.some(({color: c}) =>
+      Math.min(c.r,c.g,c.b) < .32 ||
+      Math.max(c.r,c.g,c.b)-Math.min(c.r,c.g,c.b) > .03 ||
+      Math.abs(c.r-first.r) > .08);
+    if (authoredColor) return null;
+  }
   const palette = referencePalette(reference);
   if (!palette) return null;
   root.updateMatrixWorld(true);

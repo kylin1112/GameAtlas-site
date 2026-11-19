@@ -7,13 +7,13 @@ const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder),cache=new Map();
 async function delivery(url){if(!url.endsWith('.gz'))return loadGLB(url);if(!cache.has(url))cache.set(url,(async()=>{const r=await fetch(url);if(!r.ok)throw Error('Preview unavailable');const bytes=new Uint8Array(await r.arrayBuffer());const data=bytes[0]===31&&bytes[1]===139?await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():bytes.buffer;return loader.parseAsync(data,new URL('.',new URL(url,location.href)).href)})().catch(e=>{cache.delete(url);throw e}));return cache.get(url)}
 const gtURL=id=>id==='animation-scorpio-backflip-v1'?`assets/features/${id}/gt-animated.glb`:`assets/fast/${id}/reference.glb`;
 export async function pair({left,right,input,output,animation,id,video,motion,stale,onTime}){
- const fullReference=animation&&['animation-expert-10-v1','animation-expert-01-v1','animation-expert-04-v1','animation-seraph-wing-deploy-v1'].includes(id);
+ const fullReference=animation&&['animation-expert-10-v1','animation-expert-01-v1','animation-expert-04-v1','animation-expert-72-v1','animation-seraph-wing-deploy-v1'].includes(id);
  const [a,b,samples,character]=await Promise.all([fullReference?delivery(`case-assets/references/${id}/scene.glb.gz`):animation?loadGLB(gtURL(id)):input?delivery(input):null,output?delivery(output):null,motion&&!output?fetch(motion).then(r=>r.json()):null,animation&&!fullReference?loadGLB(id==='animation-scorpio-backflip-v1'?'assets/features/'+id+'/animated.glb':'assets/fast/'+id+'/delivery.glb'):null]);
  if(stale())return null;
  const contexts=[],mixers=[],roots=[],ghostMaterial=new T.MeshBasicMaterial({color:0x25cfc0,transparent:true,opacity:.3,depthWrite:false,side:T.DoubleSide});let ghostRoot=null,sampleGroup=null;
  const leftRoot=a?cloneModel((character||a).scene):null,rightRoot=b?cloneModel(b.scene):null;
  const meshComparison=id.startsWith('mesh-i2m-');
- const releaseColors=meshComparison&&a&&rightRoot?colorBareDelivery(a.scene,rightRoot):null;
+ const releaseColors=meshComparison&&a&&rightRoot?colorBareDelivery(a.scene,rightRoot,{colorUniformSurface:id==='mesh-i2m-expert-42-v1'||id==='mesh-i2m-vanguard-v1'}):null;
  const animate=root=>{const m=new T.AnimationMixer(root);return m};
  if(animation){
   if(leftRoot){
@@ -31,16 +31,21 @@ export async function pair({left,right,input,output,animation,id,video,motion,st
  }
  const box=new T.Box3();[leftRoot,rightRoot].filter(Boolean).forEach(r=>box.union(new T.Box3().setFromObject(r,true)));
  const duration=Math.max(...[a,b].filter(Boolean).flatMap(x=>x.animations?.map(c=>c.duration)||[]),samples?.times?.at(-1)||0,1);
- if(animation){for(let i=0;i<=12;i++){mixers.forEach(m=>m.setTime(duration*i/12));[leftRoot,rightRoot].filter(Boolean).forEach(r=>box.union(new T.Box3().setFromObject(r,true)))}mixers.forEach(m=>m.setTime(0));}
+ const connor=id==='animation-expert-72-v1';
+ const dragoOpus=id==='animation-expert-10-v1'&&output?.includes('/claude-opus-5-5/');
+ if(connor||dragoOpus)box.makeEmpty();
+ if(animation){for(let i=0;i<=12;i++){mixers.forEach(m=>m.setTime(duration*i/12));[leftRoot,rightRoot].filter(Boolean).forEach(r=>{if(connor||dragoOpus)r.updateMatrixWorld(true);box.union(new T.Box3().setFromObject(r,true))})}mixers.forEach(m=>m.setTime(0));}
  if(sampleGroup){samples.pos.forEach(frame=>frame.forEach(p=>box.expandByPoint(new T.Vector3(p[0],p[2],-p[1]))));}
  const framing=animation?{fill:.97}:{};
  if(id==='animation-expert-10-v1')Object.assign(framing,{yaw:1.05,pitch:.18,fill:1.30});
  if(id==='animation-expert-01-v1')Object.assign(framing,{yaw:.22,pitch:.22,fill:1.19});
+ if(connor)Object.assign(framing,{pitch:0,fill:.86});
  if(leftRoot&&!video){const ctx=stage(left,{modal:true});ctx.set([leftRoot],meshComparison?null:box,framing);contexts.push(ctx);roots.push(leftRoot);materialControls(ctx,leftRoot);}
  if(rightRoot||sampleGroup){
   const ctx=stage(right,{modal:true});const objects=[rightRoot||sampleGroup];
   if(animation&&a){ghostRoot=cloneModel(a.scene);ghostRoot.traverse(o=>{if(o.isMesh){o.material=ghostMaterial;o.renderOrder=2}});ghostRoot.visible=false;const m=animate(ghostRoot);a.animations.forEach(c=>m.clipAction(c).play());mixers.push(m);objects.push(ghostRoot);}
-  ctx.set(objects,meshComparison?null:box,framing);if(contexts[0]){ctx.linkControls(contexts[0]);contexts[0].linked=true;}contexts.push(ctx);if(rightRoot)materialControls(ctx,rightRoot);
+  const deliveryBox=dragoOpus?box.clone().translate(new T.Vector3(2.1,4.0,3.5).sub(box.getCenter(new T.Vector3()))):box;
+  ctx.set(objects,meshComparison?null:deliveryBox,framing);if(contexts[0]){ctx.linkControls(contexts[0]);contexts[0].linked=true;}contexts.push(ctx);if(rightRoot)materialControls(ctx,rightRoot);
  }
  if(!contexts.length){ghostMaterial.dispose();return null;}
  const clock=contexts.at(-1);contexts.slice(0,-1).forEach(c=>c.paused=true);let isPaused=matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -7,8 +7,8 @@ export function loadGLB(url){
  if(/^assets\/fast\/(animation-(expert-(10|01|13)-v1|ronin-stow-v1)\/(delivery|reference)|(?:ironman|nier|nailong|silksong|helmet)-reference|mesh-uv-(010|002|006)-r04-textured)\.glb$/.test(url))url=url.replace('/fast/','/fast/stream/');const name=url.split('/').pop();
  if(sharedModels.has(name))url='case-assets/shared/'+name;
  if(!cache.has(url))cache.set(url,(async()=>{let data;
-  if(url.includes('/fast/') || url.startsWith('case-assets/shared/')){
-   const r=await fetch(url+'.gz');if(!r.ok)throw Error(`Asset HTTP ${r.status}`);
+  if(url.includes('/fast/') || (url.startsWith('case-assets/shared/') || url.endsWith('.gz'))){
+   const r=await fetch(url.endsWith('.gz')?url:url+'.gz');if(!r.ok)throw Error(`Asset HTTP ${r.status}`);
    const bytes=new Uint8Array(await r.arrayBuffer());data=bytes[0]===31&&bytes[1]===139?await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer():bytes.buffer;
   }else{const r=await fetch(url);if(!r.ok)throw Error(`Asset HTTP ${r.status}`);data=await r.arrayBuffer()}
   return loader.parseAsync(data,new URL('.',new URL(url,location.href)).href);
