@@ -18,14 +18,14 @@ function evaluation(e){if(!e){$('.detail-report').innerHTML=`<p class="detail-ru
 function modelButtons(){const s=cases[index];$('.detail-models').innerHTML=data.models.map(m=>`<button data-model="${esc(m.id)}" aria-pressed="${model===m.id}">${modelIdentity(esc(m.name))}<b>${num(data.tasks[s.id]?.[m.id]?.score)}</b></button>`).join('');$('.detail-models').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(model===b.dataset.model)return;model=b.dataset.model;rung=null;modelButtons();score();media()});}
 async function media(){stop();const v=version,s=cases[index],left=$('#input-media'),right=$('#output-media'),stale=()=>v!==version||!dialog.open;$('.detail-controls').replaceChildren();$('#input-views').replaceChildren();$('#output-views').replaceChildren();left.innerHTML=right.innerHTML='<span class="detail-loading">Preparing preview</span>';$('.detail-caption').textContent='';$('.detail-report').innerHTML='<p class="detail-rule">Loading evaluation evidence…</p>';
  try{
- catalogPromise??=fetch('case-assets/catalog.json?v=rigs-1', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
+ catalogPromise??=fetch('case-assets/catalog.json?v=workflow1', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
  const catalog=await catalogPromise;if(stale())return;
  const record=catalog.find(x=>x.model===model&&x.task===s.id)||{},path=base(),refbase=`case-assets/references/${s.id}/`;
  let active=record;
  if(record.rungs?.length){rung??=record.rungs.at(-1).id;active={...record,...record.rungs.find(x=>x.id===rung)};$('#output-views').innerHTML=record.rungs.map(x=>`<button data-rung="${esc(x.id)}" aria-pressed="${rung===x.id}">${esc(x.id==='single'?'Final image':x.id.split('-')[0].toUpperCase())}</button>`).join('');$('#output-views').querySelectorAll('button').forEach(b=>b.onclick=()=>{rung=b.dataset.rung;media()});}
  evaluation(active.evaluation);
- const animation=s.id.startsWith('animation-'),mesh=s.id.startsWith('mesh-i2m-'),uv=s.id.startsWith('mesh-uv-');
- $('#input-label').textContent=animation||mesh||uv?'Ground truth':'Task input';
+ const retopo=s.id.startsWith('mesh-retopo-'),animation=s.id.startsWith('animation-'),mesh=s.id.startsWith('mesh-i2m-'),uv=s.id.startsWith('mesh-uv-');
+ $('#input-label').textContent=animation||mesh||uv||s.stage===3||s.stage===5?'Ground truth':'Task input';
  $('#input-note').textContent='';
  $('#delivery-label').textContent=uv?'UV layout':'Model delivery';
  $('#delivery-note').title=record.reconstruction?'Original rig animated from the scored joint samples. Unrecorded joints follow the supplied rig.':'';
@@ -34,7 +34,13 @@ async function media(){stop();const v=version,s=cases[index],left=$('#input-medi
  if(mesh){
   const featured={'mesh-i2m-expert-03-v1':'ironman','mesh-i2m-expert-59-v1':'nier','mesh-i2m-nailong-v1':'nailong','mesh-i2m-expert-60-v1':'silksong'};
   input=featured[s.id]?`assets/fast/${featured[s.id]}-reference.glb`:refbase+'reference.glb.gz';
- }else if(s.stage===4||s.stage>=5){
+ }else if(s.stage===3){
+  input=refbase+'gt.glb.gz';
+ }else if(s.stage===5){
+  const level=rung?.split('-')[0];
+  if(level)image(left,refbase+level+'.webp','Ground truth');
+  else empty(left,'Ground truth unavailable');
+ }else if(s.stage===4||s.stage===6){
   const ri=rung?Math.max(0,parseInt(rung.slice(1))||0):0;const src=s.views?.[ri]?.[1]||s.image;image(left,'assets/cases/'+src,'Task reference');
  }else if(uv){
   input='assets/fast/'+(s.id==='mesh-uv-008-r04'?'helmet-reference':s.id+'-textured')+'.glb';
@@ -47,13 +53,14 @@ async function media(){stop();const v=version,s=cases[index],left=$('#input-medi
  if(input){const name=input.split('/').pop();if(['retopo-003-input.glb','case-4-reference.glb','mesh-retopo-004-r04-input.glb'].includes(name))input='case-assets/shared/'+name+'.gz';}if(input||output||animation){const m=await import('./vendor/public-viewer.js?v=mesh-pair1');if(stale())return;const mounted=await m.pair({left,right,input,output,animation,id:s.id,motion:record.motion?path+record.motion:null,stale,onTime:f=>{const timeline=$('#detail-timeline');if(timeline)timeline.value=Math.round(f*1000)}});if(stale()){mounted?.dispose();return;}api=mounted;}
  if(api){
   if(api.referenceColors){$('#delivery-note').textContent='Reference-colored preview';$('#delivery-note').title='Ground-truth colors mapped onto the submitted geometry for display.';}
-  $('.detail-controls').innerHTML=animation?`<button id="detail-play">${api.paused?'Play':'Pause'}</button><input id="detail-timeline" type="range" min="0" max="1000" value="0" aria-label="Animation progress"><button id="detail-reset">Reset view</button>`:uv?'<button id="detail-reset">Reset view</button>':`<button data-material="material" aria-pressed="true">Material</button><button data-material="clay" aria-pressed="false">Clay</button><button data-material="wire" aria-pressed="false">Wireframe</button><button id="detail-reset">Reset view</button>`;
+  if(retopo)api.material('wire');
+  $('.detail-controls').innerHTML=animation?`<button id="detail-play">${api.paused?'Play':'Pause'}</button><input id="detail-timeline" type="range" min="0" max="1000" value="0" aria-label="Animation progress"><button id="detail-reset">Reset view</button>`:uv?'<button id="detail-reset">Reset view</button>':`<button data-material="material" aria-pressed="${!retopo}">Material</button><button data-material="clay" aria-pressed="false">Clay</button><button data-material="wire" aria-pressed="${retopo}">Wireframe</button><button id="detail-reset">Reset view</button>`;
   $('#detail-reset').onclick=()=>api.reset();if(animation){$('#detail-play').onclick=e=>{api.paused=!api.paused;e.target.textContent=api.paused?'Play':'Pause'};$('#detail-timeline').oninput=e=>{api.paused=true;api.seek(+e.target.value/1000);$('#detail-play').textContent='Play'};if(output||record.motion){right.insertAdjacentHTML('beforeend','<label class="detail-ghost-toggle"><input type="checkbox"> Cyan GT</label>');right.querySelector('input').onchange=e=>api.ghost(e.target.checked);}}else $('.detail-controls').querySelectorAll('[data-material]').forEach(b=>b.onclick=()=>{api.material(b.dataset.material);$('.detail-controls').querySelectorAll('[data-material]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
  }
- $('.detail-caption').textContent=animation||mesh||uv?'':(s.stage===4?'Submitted camera preview · camera geometry is scored; lighting is not.':'Input and recorded delivery.');
+ $('.detail-caption').textContent=animation||mesh||uv||s.stage===3||s.stage===5?'':(s.stage===4?'Submitted camera preview · camera geometry is scored; lighting is not.':'Input and recorded delivery.');
  }catch(e){if(stale())return;console.warn('Case detail',e);empty(right,'Preview could not be loaded','The recorded score remains available.');if(left.querySelector('.detail-loading'))empty(left,'Reference preview unavailable');}
 }
-function show(i){stop();index=(i+cases.length)%cases.length;rung=null;const s=cases[index];dialog.classList.toggle('paired-detail',s.id.startsWith('animation-')||s.id.startsWith('mesh-i2m-')||s.id.startsWith('mesh-uv-'));$('#detail-category').textContent=s.name==='UV'?'UV unwrapping':s.name==='Mesh'?'Image-to-mesh':s.name;$('#case-name').textContent=s.case;$('#detail-brief').textContent=s.short;modelButtons();score();media();dialog.scrollTop=0;}
+function show(i){stop();index=(i+cases.length)%cases.length;rung=null;const s=cases[index];dialog.classList.toggle('paired-detail',s.id.startsWith('animation-')||s.id.startsWith('mesh-i2m-')||s.id.startsWith('mesh-uv-')||s.id.startsWith('mesh-retopo-'));$('#detail-category').textContent=s.name==='UV'?'UV unwrapping':s.name==='Mesh'?'Image-to-mesh':s.name;$('#case-name').textContent=s.case;$('#detail-brief').textContent=s.short;modelButtons();score();media();dialog.scrollTop=0;}
 let entryCases=[];
 function step(delta){
  const at=entryCases.indexOf(index), count=entryCases.length;

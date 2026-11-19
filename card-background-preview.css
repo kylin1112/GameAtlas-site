@@ -30,3 +30,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+#atlas-browser .render-reference {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+#atlas-browser .atlas-case:focus-visible .render-reference { opacity: 1; }
+@media (hover: hover) {
+  #atlas-browser .atlas-case:hover .render-reference { opacity: 1; }
+}
