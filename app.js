@@ -20,11 +20,9 @@ let sortColumn='final',ascending=true,rankMetric=0;
 function descendingScore(a,b){
  return (Number.isFinite(b)?b:-Infinity)-(Number.isFinite(a)?a:-Infinity);
 }
+const tableHead=document.querySelector('#table-head');
 function sortHeader(key,label){
- const active=sortColumn===key;
- const direction=key==='model'&&ascending?'ascending':'descending';
- const arrow=active?(direction==='ascending'?'↑':'↓'):'↕';
- return '<th'+(active?' aria-sort="'+direction+'"':'')+'><button type="button" id="sort-'+key+'" aria-label="Sort by '+label+'">'+label+' '+arrow+'</button></th>';
+ return '<th><button type="button" id="sort-'+key+'" data-sort="'+key+'" aria-label="Sort by '+label+'">'+label+' <span aria-hidden="true"></span></button></th>';
 }
 document.querySelector('#table-head').addEventListener('click',event=>{
  const button=event.target.closest('button');
@@ -34,7 +32,6 @@ document.querySelector('#table-head').addEventListener('click',event=>{
  else rankMetric=key==='first'?2:0;
  sortColumn=key;
  render();
- document.getElementById(button.id).focus();
 });
 function scoreNumber(value){return Number.isFinite(value)?value.toFixed(2):'—'}
 function scoreBar(first,final,name){
@@ -70,8 +67,15 @@ function animateScores(root,selector){
  });
  scoreObservers.set(root,observer);
 }
+tableHead.innerHTML='<tr><th>#</th>'+sortHeader('model','Model')+'<th class="score-axis" aria-label="Score bars"></th>'+sortHeader('first','First')+sortHeader('final','Final')+'</tr>';
 function render(){
-document.querySelector('#table-head').innerHTML='<tr><th>#</th>'+sortHeader('model','Model')+'<th class="score-axis" aria-label="Score bars"></th>'+sortHeader('first','First')+sortHeader('final','Final')+'</tr>';
+for(const button of tableHead.querySelectorAll('[data-sort]')){
+ const active=button.dataset.sort===sortColumn;
+ const up=sortColumn==='model'&&ascending;
+ if(active)button.parentElement.setAttribute('aria-sort',up?'ascending':'descending');
+ else button.parentElement.removeAttribute('aria-sort');
+ button.querySelector('span').textContent=active?(up?'↑':'↓'):'↕';
+}
 const ranked=[...models].sort((a,b)=>descendingScore(a.metrics[rankMetric],b.metrics[rankMetric]));
 const query=document.querySelector('#model-search').value.trim().toLowerCase();
 const rows=ranked.filter(r=>r.name.toLowerCase().includes(query));
