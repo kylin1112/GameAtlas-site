@@ -16,7 +16,26 @@ function modelIdentity(name){
  return `<span class="model-identity">${brand?`<img class="model-brand" src="brand/${brand}.svg?v=12" alt="" width="22" height="22"/>`:''}<span>${name}</span></span>`;
 }
 
-let sortName=false,ascending=true;
+let sortColumn='final',ascending=true,rankMetric=0;
+function descendingScore(a,b){
+ return (Number.isFinite(b)?b:-Infinity)-(Number.isFinite(a)?a:-Infinity);
+}
+function sortHeader(key,label){
+ const active=sortColumn===key;
+ const direction=key==='model'&&ascending?'ascending':'descending';
+ const arrow=active?(direction==='ascending'?'↑':'↓'):'↕';
+ return '<th'+(active?' aria-sort="'+direction+'"':'')+'><button type="button" id="sort-'+key+'" aria-label="Sort by '+label+'">'+label+' '+arrow+'</button></th>';
+}
+document.querySelector('#table-head').addEventListener('click',event=>{
+ const button=event.target.closest('button');
+ if(!button)return;
+ const key=button.id.slice(5);
+ if(key==='model')ascending=sortColumn==='model'?!ascending:true;
+ else rankMetric=key==='first'?2:0;
+ sortColumn=key;
+ render();
+ document.getElementById(button.id).focus();
+});
 function scoreNumber(value){return Number.isFinite(value)?value.toFixed(2):'—'}
 function scoreBar(first,final,name){
  if(!Number.isFinite(final))return `<div class="score-track" role="img" aria-label="${name}: pending selected runs"></div>`;
@@ -50,24 +69,30 @@ function animateScores(root,selector){
  scoreObservers.set(root,observer);
 }
 function render(){
-document.querySelector('#table-head').innerHTML='<tr><th>#</th><th><button id="sort-model" type="button" aria-label="Sort models alphabetically">Model '+(sortName?(ascending?'↑':'↓'):'↕')+'</button></th><th class="score-axis" aria-label="Score bars"></th><th>First</th><th><button id="sort-final" type="button">Final ↓</button></th></tr>';
-let rows=models.filter(r=>r.name.toLowerCase().includes(document.querySelector('#model-search').value.trim().toLowerCase()));
-if(sortName)rows.sort((a,b)=>ascending?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
-document.querySelector('#table-body').innerHTML=rows.map(r=>'<tr><td>'+(r.complete?models.indexOf(r)+1:'—')+'</td><td>'+modelIdentity(r.name)+(!r.complete?' <small class="run-status">In progress</small>':'')+'</td><td>'+scoreBar(r.metrics[2],r.metrics[0],r.name)+'</td><td class="first-number">'+scoreNumber(r.metrics[2])+'</td><td class="final-number">'+scoreNumber(r.metrics[0])+'</td></tr>').join('');
+document.querySelector('#table-head').innerHTML='<tr><th>#</th>'+sortHeader('model','Model')+'<th class="score-axis" aria-label="Score bars"></th>'+sortHeader('first','First')+sortHeader('final','Final')+'</tr>';
+const ranked=[...models].sort((a,b)=>descendingScore(a.metrics[rankMetric],b.metrics[rankMetric]));
+const query=document.querySelector('#model-search').value.trim().toLowerCase();
+const rows=ranked.filter(r=>r.name.toLowerCase().includes(query));
+if(sortColumn==='model')rows.sort((a,b)=>ascending?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
+document.querySelector('#table-body').innerHTML=rows.map(r=>'<tr><td>'+(Number.isFinite(r.metrics[rankMetric])?ranked.indexOf(r)+1:'—')+'</td><td>'+modelIdentity(r.name)+(!r.complete?' <small class="run-status">In progress</small>':'')+'</td><td>'+scoreBar(r.metrics[2],r.metrics[0],r.name)+'</td><td class="first-number">'+scoreNumber(r.metrics[2])+'</td><td class="final-number">'+scoreNumber(r.metrics[0])+'</td></tr>').join('');
 animateScores(document.querySelector('#table-body'),'tr');
 document.querySelector('#empty').hidden=rows.length!==0;
-document.querySelector('#sort-model').onclick=()=>{ascending=sortName?!ascending:true;sortName=true;render()};
-document.querySelector('#sort-final').onclick=()=>{sortName=false;render()};}
+}
 document.querySelector('#model-search').addEventListener('input',render);render();
 
 const categoryOptions=document.querySelector('#category-options');
 categoryOptions.innerHTML=disciplines.map(([name,count,desc,path],i)=>`<button type="button" aria-pressed="${i===0}" data-category="${i}"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="${path}"/></svg><span>${name}</span><small>${count}</small></button>`).join('');
+const categorySort=document.querySelector('#category-sort');
+let currentCategory=0;
+categorySort.addEventListener('change',()=>selectCategory(currentCategory));
 function selectCategory(index){
+ currentCategory=index;
+ const scores=categorySort.value==='first'?'categoryFirst':'categories';
  const [name,count,desc]=disciplines[index];
  document.querySelector('#category-title').textContent=name;
  document.querySelector('#category-leaderboards .category-note').textContent='Selected-run averages · First submission / Final score. Average of two or three selected runs. Pending scores await the selected runs.'+ (models.some(m=>Number.isFinite(m.categoryFirst[index])&&Number.isFinite(m.categories[index])&&m.categoryFirst[index]>m.categories[index])?' Hatched segments indicate a decrease from the first submission.':'');
  categoryOptions.querySelectorAll('button').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
- document.querySelector('#category-bars').innerHTML=[...models].sort((a,b)=>(a.categories[index]===null)-(b.categories[index]===null)||(b.categories[index]??0)-(a.categories[index]??0)).map(model=>{const score=model.categories[index],first=model.categoryFirst[index];return `<div class="category-bar-row"><span class="category-model">${modelIdentity(model.name)}</span>${scoreBar(first,score,model.name)}<span class="category-score"><small>${scoreNumber(first)}</small><strong>${scoreNumber(score)}</strong></span></div>`}).join('');
+ document.querySelector('#category-bars').innerHTML=[...models].sort((a,b)=>descendingScore(a[scores][index],b[scores][index])).map(model=>{const score=model.categories[index],first=model.categoryFirst[index];return `<div class="category-bar-row"><span class="category-model">${modelIdentity(model.name)}</span>${scoreBar(first,score,model.name)}<span class="category-score"><small>${scoreNumber(first)}</small><strong>${scoreNumber(score)}</strong></span></div>`}).join('');
  animateScores(document.querySelector('#category-bars'),'.category-bar-row');
 }
 categoryOptions.querySelectorAll('button').forEach((button,i)=>button.addEventListener('click',()=>selectCategory(i)));

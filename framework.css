@@ -69,3 +69,7 @@
 @media(max-width:760px){#atlas-browser[data-design=chapters]{display:block}#atlas-browser .atlas-map{position:static;margin-bottom:24px}#atlas-browser #atlas-stages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}#atlas-browser .atlas-stage{padding:10px}#atlas-browser .atlas-cases{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:440px){#atlas-browser .atlas-cases{grid-template-columns:1fr}#atlas-browser .atlas-case-image{aspect-ratio:16/10}}
 @media(prefers-reduced-motion:reduce){#atlas-browser *,#atlas-browser *::before{animation:none!important;transition:none!important}}
+
+.category-chart-head { flex-wrap: wrap; gap: .75rem; }
+.category-sort { display: inline-flex; align-items: center; gap: .5rem; font-size: .85rem; }
+.category-sort select { font: inherit; color: inherit; background: white; border: 1px solid #b9cbe0; border-radius: .4rem; padding: .35rem .5rem; }
