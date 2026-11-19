@@ -13,14 +13,14 @@
 .notes-tabs button[aria-selected=true]{color:#314e76;border-color:#5279ad}
 .notes-tabs button:hover{color:#314e76}
 .notes-window{display:flex;gap:30px;overflow:hidden;align-items:stretch}
-.notes-card{flex:0 0 82%;min-width:0;border:1px solid #b6c9e1;border-top:3px solid #5279ad;background:#e1eaf6;padding:32px 36px 0;color:#2e4667}
+.notes-card{flex:0 0 82%;min-width:0;border:1px solid #b6c9e1;border-top:3px solid #5279ad;background:#e1eaf6;padding:24px 28px 0;color:#2e4667}
 .notes-card .notes-status{font-size:11px;letter-spacing:.08em;color:#6b81a0;margin:0 0 20px}
 .notes-card .notes-copy{font:400 clamp(23px,2.25vw,32px)/1.5 Georgia,serif;letter-spacing:-.015em;margin:0;min-height:150px;max-width:850px;text-wrap:pretty}
-.notes-card footer{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid #b6c9e1;margin:30px -36px 0;padding:20px 36px;background:none;color:#486487;font-size:13px}
+.notes-card footer{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid #b6c9e1;margin:24px -28px 0;padding:14px 28px;background:none;color:#486487;font-size:13px}
 .notes-card footer strong{font-weight:500;font-size:15px}.notes-card footer span{color:#7187a4;font-size:12px}
 .notes-peek{flex:0 0 66%;border:1px solid #c8d5e5;border-top:3px solid #a8bcd6;background:#e8eef7;text-align:left;padding:32px;color:#859bb8;cursor:pointer;opacity:.55;display:flex;flex-direction:column;gap:24px}
 .notes-peek strong{font:400 28px/1.3 Georgia,serif}.notes-peek span{font:400 25px/1.5 Georgia,serif;max-width:500px}.notes-peek small{font-size:12px;margin-top:auto}
-@media(max-width:600px){#evaluation .measurement-heading{min-height:116px}.model-notes{padding-top:32px;padding-bottom:48px}.notes-heading{align-items:start;margin-bottom:20px}.notes-heading>span{white-space:nowrap;padding-top:8px;font-size:10px}.notes-tabs{gap:22px}.notes-tabs button{font-size:13px}.notes-window{gap:14px}.notes-card{flex-basis:94%;padding:24px 22px 0}.notes-card .notes-copy{font-size:22px;min-height:220px}.notes-card footer{margin:24px -22px 0;padding:18px 22px;flex-wrap:wrap;gap:8px}.notes-peek{padding:24px 22px}}
+@media(max-width:600px){#evaluation .measurement-heading{min-height:116px}.model-notes{padding-top:32px;padding-bottom:48px}.notes-heading{align-items:start;margin-bottom:20px}.notes-heading>span{white-space:nowrap;padding-top:8px;font-size:10px}.notes-tabs{gap:22px}.notes-tabs button{font-size:13px}.notes-window{gap:14px}.notes-card{flex-basis:94%;padding:24px 22px 0}.notes-card .notes-copy{font-size:22px;min-height:220px}.notes-card footer{margin:24px -22px 0;padding:14px 22px;flex-wrap:wrap;gap:8px}.notes-peek{padding:24px 22px}}
 /* Centered carousel with neighboring cards on both sides. */
 .notes-window{display:block;position:relative;overflow:hidden}
 .notes-track{display:flex;align-items:stretch;gap:30px;position:relative;transition:transform .65s cubic-bezier(.22,.68,.18,1);will-change:transform}
@@ -32,10 +32,10 @@
 @media(max-width:600px){.notes-track{gap:14px}.notes-track .notes-card{flex-basis:86%}.notes-track .notes-copy{padding-bottom:24px}}
 @media(prefers-reduced-motion:reduce){.notes-track,.notes-track .notes-card{transition:none}}
 
-/* Taller, narrower cards with finite first and last positions. */
-.notes-track .notes-card{flex-basis:58%;min-height:430px}
-@media(max-width:850px){.notes-track .notes-card{flex-basis:76%;min-height:410px}}
-@media(max-width:600px){.notes-track .notes-card{flex-basis:86%;min-height:450px}}
+/* Keep neighboring cards visible at each viewport size. */
+.notes-track .notes-card{flex-basis:56%}
+@media(max-width:850px){.notes-track .notes-card{flex-basis:76%}}
+@media(max-width:600px){.notes-track .notes-card{flex-basis:86%}}
 
 /* Consistent brand marks in both leaderboard views. */
 .model-identity{display:inline-flex;align-items:center;gap:10px;vertical-align:middle;line-height:1.4}
@@ -94,3 +94,17 @@
 #atlas-browser .atlas-case-scene .atlas-case-title{color:#fff;background:linear-gradient(transparent,rgba(12,22,37,.8));text-shadow:0 1px 3px #0005;padding-top:45px}
 #atlas-browser .atlas-case-object .atlas-case-title{inset:auto auto 14px 14px;max-width:calc(100% - 28px);padding:8px 12px;border:1px solid rgba(255,255,255,.8);border-radius:8px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);color:#324763;font:500 14px/1.35 Arial,sans-serif;letter-spacing:0;text-shadow:none;box-shadow:0 2px 10px rgba(40,62,90,.05)}
 @media(max-width:1050px){#atlas-browser .atlas-case-title{font-size:16px;padding-right:14px;padding-left:14px}}
+
+.model-notes .notes-card .notes-copy { min-height: 0; padding-bottom: 16px; line-height: 1.2; }
+.model-notes .notes-card .notes-detail {
+  max-width: 65ch;
+  margin: 0 0 1em;
+  line-height: 1.7;
+  color: inherit;
+}
+.model-notes .notes-card footer .model-identity,
+.model-notes .notes-card footer .model-identity span {
+  font-size: 15px;
+  font-weight: 600;
+  color: inherit;
+}

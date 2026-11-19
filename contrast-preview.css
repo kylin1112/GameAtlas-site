@@ -260,7 +260,8 @@ footer {
   font-size: clamp(35px, 3.5vw, 48px);
 }
 #benchmark .intro-copy p:not(.lead),
-#evaluation .evaluation-summary {
+#evaluation .evaluation-summary,
+#model-notes .notes-detail {
   font-size: clamp(15px, 1.45vw, 17px);
   line-height: 1.85;
 }
