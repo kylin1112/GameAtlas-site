@@ -41,7 +41,7 @@ function scoreBar(first,final,name){
  if(!Number.isFinite(final))return `<div class="score-track" role="img" aria-label="${name}: pending selected runs"></div>`;
  const firstBar=Number.isFinite(first)?`<span class="score-first" style="width:${first}%"></span>`:'';
  const finalBar=`<span class="score-final" style="width:${final}%"></span>`;
- const layers=first>final?firstBar+finalBar:finalBar+firstBar;
+ const layers=first>=final&&Number.isFinite(first)?firstBar:finalBar+firstBar;
  return `<div class="score-track" role="img" aria-label="${name}: first submission average ${scoreNumber(first)}, final score average ${scoreNumber(final)}" title="First submission Avg ${scoreNumber(first)} · Final score Avg ${scoreNumber(final)}">${layers}</div>`;
 }
 // Reveal each row once as it enters view; retain the exact final scores.

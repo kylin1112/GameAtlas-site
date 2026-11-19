@@ -70,8 +70,9 @@
 @media(max-width:440px){#atlas-browser .atlas-cases{grid-template-columns:1fr}#atlas-browser .atlas-case-image{aspect-ratio:16/10}}
 @media(prefers-reduced-motion:reduce){#atlas-browser *,#atlas-browser *::before{animation:none!important;transition:none!important}}
 
-.category-column-head { border-bottom: 1px solid #c6d5e6; color: #405775; font-size: 12px; font-weight: 600; }
-.category-column-head .category-score { grid-column: 3; }
+.category-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 18px 0; }
+.category-toolbar .score-legend { margin: 0; }
+.category-sort-actions { display: flex; flex: none; gap: 8px; color: #405775; font-size: 12px; font-weight: 600; }
 .category-score { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
-.category-column-head button { padding: 4px 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; white-space: nowrap; cursor: pointer; }
-.category-column-head button[aria-pressed="true"] { color: #304e79; }
+.category-sort-actions button { padding: 4px 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: right; white-space: nowrap; cursor: pointer; }
+.category-sort-actions button[aria-pressed="true"] { color: #304e79; }
