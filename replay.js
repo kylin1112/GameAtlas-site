@@ -1,6 +1,15 @@
 (async () => {
 const panel = document.querySelector('#behavior-panel');
 const tabs = document.querySelector('#behavior-tabs');
+// Keep replay media off the network until the reader approaches this section.
+await new Promise(resolve => {
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    observer.disconnect();
+    resolve();
+  }, {rootMargin: '240px 0px'});
+  observer.observe(tabs.closest('section'));
+});
 const camera = await fetch('assets/replay/submissions.json').then(r => r.json());
 const fishRoot = 'assets/replay/fish/';
 const b2Root = 'assets/replay/b2/';

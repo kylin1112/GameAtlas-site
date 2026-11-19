@@ -41,3 +41,11 @@
 @media (hover: hover) {
   #atlas-browser .atlas-case:hover .render-reference { opacity: 1; }
 }
+
+.feature-card:not([data-interactive="true"]) .preview-tools {
+  visibility: hidden;
+}
+.feature-card:not([data-interactive="true"]) .feature-view {
+  visibility: hidden;
+}
+.behavior-panel:empty { min-height: min(40vw, 550px); }

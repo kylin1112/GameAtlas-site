@@ -12,7 +12,8 @@ function animationFiles(id){return id==='animation-scorpio-backflip-v1'?['assets
 export async function prepareAnimation(id){if(!prepared.has(id))prepared.set(id,(async()=>{
  boundsFile??=fetch('assets/fast/motion-bounds.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
  const selected=window.GAMEATLAS_TOUR.find(c=>c.id===id).display;
- const urls=animationFiles(id);urls[0]=`case-assets/${selected.model}/${id}/${selected.modelFile}`;
+ const urls=animationFiles(id);urls[0]=`case-assets/${selected.model}/${id}/${selected.showcaseModelFile || selected.modelFile}`;
+ if(selected.showcaseModelFile) urls[1]=`assets/fast/showcase/${id}/reference.glb.gz`;
  const [agent,gt,allBounds]=await Promise.all([...urls.map(loadGLB),boundsFile]);const known=allBounds[id];
  return {agent,gt,bounds:known};
  })().catch(e=>{prepared.delete(id);throw e}));return prepared.get(id)}
