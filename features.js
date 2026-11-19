@@ -3,7 +3,7 @@ const cases=window.GAMEATLAS_TOUR;
 let viewer;
 let viewerPromise;
 function loadViewer() {
- return viewerPromise ??= import('./vendor/public-viewer.js?v=motion-frame4').then(module => viewer = module).catch(error => {
+ return viewerPromise ??= import('./vendor/public-viewer.js?v=mesh-pair1').then(module => viewer = module).catch(error => {
   viewerPromise = null;
   throw error;
  });

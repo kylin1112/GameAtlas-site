@@ -1,3 +1,4 @@
+import {colorBareDelivery} from './mesh-preview-color.js';
 import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from './vendor/meshopt_decoder.mjs';
@@ -11,6 +12,8 @@ export async function pair({left,right,input,output,animation,id,video,motion,st
  if(stale())return null;
  const contexts=[],mixers=[],roots=[],ghostMaterial=new T.MeshBasicMaterial({color:0x25cfc0,transparent:true,opacity:.3,depthWrite:false,side:T.DoubleSide});let ghostRoot=null,sampleGroup=null;
  const leftRoot=a?cloneModel((character||a).scene):null,rightRoot=b?cloneModel(b.scene):null;
+ const meshComparison=id.startsWith('mesh-i2m-');
+ const releaseColors=meshComparison&&a&&rightRoot?colorBareDelivery(a.scene,rightRoot):null;
  const animate=root=>{const m=new T.AnimationMixer(root);return m};
  if(animation){
   if(leftRoot){
@@ -33,16 +36,16 @@ export async function pair({left,right,input,output,animation,id,video,motion,st
  const framing=animation?{fill:.97}:{};
  if(id==='animation-expert-10-v1')Object.assign(framing,{yaw:1.05,pitch:.18,fill:1.30});
  if(id==='animation-expert-01-v1')Object.assign(framing,{yaw:.22,pitch:.22,fill:1.19});
- if(leftRoot&&!video){const ctx=stage(left,{modal:true});ctx.set([leftRoot],box,framing);contexts.push(ctx);roots.push(leftRoot);materialControls(ctx,leftRoot);}
+ if(leftRoot&&!video){const ctx=stage(left,{modal:true});ctx.set([leftRoot],meshComparison?null:box,framing);contexts.push(ctx);roots.push(leftRoot);materialControls(ctx,leftRoot);}
  if(rightRoot||sampleGroup){
   const ctx=stage(right,{modal:true});const objects=[rightRoot||sampleGroup];
   if(animation&&a){ghostRoot=cloneModel(a.scene);ghostRoot.traverse(o=>{if(o.isMesh){o.material=ghostMaterial;o.renderOrder=2}});ghostRoot.visible=false;const m=animate(ghostRoot);a.animations.forEach(c=>m.clipAction(c).play());mixers.push(m);objects.push(ghostRoot);}
-  ctx.set(objects,box,framing);if(contexts[0]){ctx.linkControls(contexts[0]);contexts[0].linked=true;}contexts.push(ctx);if(rightRoot)materialControls(ctx,rightRoot);
+  ctx.set(objects,meshComparison?null:box,framing);if(contexts[0]){ctx.linkControls(contexts[0]);contexts[0].linked=true;}contexts.push(ctx);if(rightRoot)materialControls(ctx,rightRoot);
  }
  if(!contexts.length){ghostMaterial.dispose();return null;}
  const clock=contexts.at(-1);contexts.slice(0,-1).forEach(c=>c.paused=true);let isPaused=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function setTime(time){const t=Math.max(0,Math.min(duration,time));mixers.forEach(m=>m.setTime(t));if(samples){const i=Math.min(samples.pos.length-1,Math.round(t/duration*(samples.pos.length-1)));const positions=sampleGroup.geometry.attributes.position;samples.pos[i].forEach((p,j)=>positions.setXYZ(j,p[0],p[2],-p[1]));positions.needsUpdate=true;}if(video&&video.duration&&Math.abs(video.currentTime-t/duration*video.duration)>.1)video.currentTime=t/duration*video.duration;contexts.forEach(c=>c.draw());onTime?.(t/duration,t,duration);}
  clock.update=t=>setTime(t%duration);clock.paused=isPaused;setTime(0);
- const api={duration,get paused(){return isPaused},set paused(v){isPaused=v;clock.paused=v;},seek(f){clock.time=f*duration;setTime(clock.time)},ghost(on){if(ghostRoot){ghostRoot.visible=on;clock.draw()}},reset(){contexts.forEach(c=>{c.reset();Object.assign(c.controls,framing)})},material(mode){contexts.forEach(c=>c.material?.(mode))},dispose(){contexts.forEach(c=>c.dispose());mixers.forEach(m=>m.stopAllAction());ghostMaterial.dispose();sampleGroup?.geometry.dispose();sampleGroup?.material.dispose();}};
+ const api={referenceColors:!!releaseColors,duration,get paused(){return isPaused},set paused(v){isPaused=v;clock.paused=v;},seek(f){clock.time=f*duration;setTime(clock.time)},ghost(on){if(ghostRoot){ghostRoot.visible=on;clock.draw()}},reset(){contexts.forEach(c=>{c.reset();Object.assign(c.controls,framing)})},material(mode){contexts.forEach(c=>c.material?.(mode))},dispose(){contexts.forEach(c=>c.dispose());releaseColors?.();mixers.forEach(m=>m.stopAllAction());ghostMaterial.dispose();sampleGroup?.geometry.dispose();sampleGroup?.material.dispose();}};
  return api;
 }
