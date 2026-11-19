@@ -8,7 +8,7 @@ const decks=Object.fromEntries(Object.entries(deckIds).map(([kind,ids])=>[kind,i
 let viewer;
 let viewerPromise;
 function loadViewer() {
- return viewerPromise ??= import('./vendor/public-viewer.js?v=direct3d1').then(module => viewer = module).catch(error => {
+ return viewerPromise ??= import('./vendor/public-viewer.js?v=direct3d2').then(module => viewer = module).catch(error => {
   viewerPromise = null;
   throw error;
  });

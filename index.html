@@ -2,7 +2,30 @@
 
 <html lang="en"><head><meta charset="utf-8"/>
 
-<meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#101415" name="theme-color"/><meta content="GameAtlas benchmarks visual coding and spatial reasoning in LLM agents across 91 game development tasks. Expert-defined tests score the artifacts agents submit." name="description"/><title>GameAtlas: Bringing LLM Agents Back to Basics in Visual Coding and Spatial Reasoning for Game Development</title><link href="style.css?v=heading-anchor1" rel="stylesheet"/><link href="framework.css?v=legend-sort-3" rel="stylesheet"/><link href="evidence.css?v=eval-refined-20261117" rel="stylesheet"/><style>
+<meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#101415" name="theme-color"/><meta content="GameAtlas benchmarks visual coding and spatial reasoning in LLM agents across 91 game development tasks. Expert-defined tests score the artifacts agents submit." name="description"/><title>GameAtlas: Bringing LLM Agents Back to Basics in Visual Coding and Spatial Reasoning for Game Development</title><script>
+// On desktop these three cards are adjacent to the hero. Start their transfers
+// while the page scripts load. Deep links and small screens use the viewport loader.
+if (['', '#home', '#showcase'].includes(location.hash) &&
+    matchMedia('(min-width: 900px) and (min-height: 650px)').matches) {
+  for (const href of [
+    'case-assets/gpt-6.1-sol/animation-expert-13-v1/showcase.glb.gz',
+    'assets/fast/showcase/animation-expert-13-v1/reference.glb.gz',
+    'assets/fast/showcase/ironman-reference.glb.gz',
+    'case-assets/Kimi-K3.1-Pro/mesh-i2m-expert-03-v1/heat/showcase.glb.gz',
+    'assets/fast/showcase/helmet-reference.glb.gz',
+    'case-assets/claude-opus-5-5/mesh-uv-008-r04/showcase-islands.webp'
+  ]) {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.href = href;
+    link.as = href.endsWith('.webp') ? 'image' : 'fetch';
+    if (link.as === 'fetch') link.crossOrigin = 'anonymous';
+    link.fetchPriority = 'low';
+    document.head.append(link);
+  }
+}
+</script>
+<link href="style.css?v=heading-anchor1" rel="stylesheet"/><link href="framework.css?v=legend-sort-3" rel="stylesheet"/><link href="evidence.css?v=eval-refined-20261117" rel="stylesheet"/><style>
 .nav{border-bottom:0;height:72px}.project-brand{display:flex;align-items:center;gap:10px;letter-spacing:-.6px}.studio-mark{width:34px;height:34px;padding:7px;box-sizing:border-box;background:#273a33;border-radius:8px}.project-hero{position:relative;padding:28px 24px 40px;isolation:isolate}.project-hero h1{margin:0 auto 22px;max-width:960px;line-height:1}.hero-art{display:block;width:100%;height:auto;overflow:visible}.project-hero h2{font-size:clamp(18px,2.1vw,29px);line-height:1.5;letter-spacing:-.035em;font-weight:400}.project-hero h2 b{font-weight:760;color:#273a33}.project-authors{font-size:13px;margin-top:23px}.project-affiliations{font-size:11px;margin:7px 0 24px}.project-links{gap:14px}.project-links a,.project-links>span{display:flex;align-items:center;gap:10px;border-radius:8px;padding:13px 21px;border:1px solid #b9beb2;background:#fdfbf5;color:#35483d;font-size:13px;box-shadow:0 4px 0 #c9c9be,0 6px 10px #293a2910;transition:transform .15s,box-shadow .15s}.project-links a:hover{transform:translateY(-2px);background:#fffdf8;box-shadow:0 6px 0 #b8bfb1,0 10px 18px #293a2914}.project-links a:active{transform:translateY(3px);box-shadow:0 1px 0 #b8bfb1}.project-links small{margin:0;color:#9a9d91}.button-icon{font-size:16px;line-height:1}.project-links>span{opacity:.62;box-shadow:0 2px 0 #c9c9be}.hero-overline{display:flex;justify-content:center;align-items:center;gap:10px;font:10px monospace;letter-spacing:.15em;color:#7c877c;margin:0 0 8px}.hero-overline:before{content:'';width:5px;height:5px;background:#ad704d}.preview-switch{position:fixed;bottom:15px;right:18px;z-index:999;background:#fffdf5ee;border:1px solid #c4c8ba;box-shadow:0 4px 20px #25332916;border-radius:9px;padding:9px 12px;font:11px Arial;color:#697162;display:flex;gap:12px;align-items:center}.preview-switch a{color:#344b3c;text-decoration:none}.preview-switch b{color:#344b3c}.material-detail{opacity:.72;transition:opacity .4s}.hero-art:hover .material-detail{opacity:1}.hero-art .lightwash{opacity:.2;transition:opacity .6s}.hero-art:hover .lightwash{opacity:.65}.project-hero:before{content:'';position:absolute;inset:0 8% 40%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse,#e7e6db70,transparent 66%)}@media(max-width:600px){.nav{height:62px;padding:0 18px}.nav nav{gap:12px}.project-hero{padding:32px 16px}.project-hero h1{margin:8px auto 22px}.project-hero h2{font-size:18px}.project-links{gap:10px}.project-links a,.project-links>span{font-size:11px;padding:11px 12px;gap:6px}.project-authors{margin-top:20px}.hero-overline{font-size:8px}.preview-switch{bottom:8px;right:8px;font-size:10px}}
 .hero-b hero-c{padding-top:36px}.hero-b h1{max-width:1000px;margin-bottom:12px}.hero-b .project-links a,.hero-b .project-links>span{border-radius:2px;border:2px solid #46583b;box-shadow:3px 5px 0 #46583b;background:#e7eacb}.hero-b .project-links a:hover{background:#f0f2dc;transform:translate(-1px,-2px);box-shadow:4px 7px 0 #46583b}.hero-b .project-links a:active{transform:translate(3px,4px);box-shadow:0 1px 0 #46583b}.hero-b:before{background-image:radial-gradient(#72836122 .8px,transparent .8px);background-size:16px 16px;mask-image:radial-gradient(ellipse,#000,transparent 65%)}.hero-b .hero-overline{letter-spacing:.25em}.hero-b h2 b{color:#435b38}</style><style>.hero-c h1{max-width:1000px}.hero-c .hero-art{transition:filter .3s}.hero-c .hero-art:hover{filter:drop-shadow(0 3px 5px #52654615)}</style><style>
 /* C revision: one geometry, one light direction, two surface treatments. */
@@ -20,11 +43,12 @@ body{--bg:#f5f5f2;--text:#263344;--gold:#536f99;background:#f5f5f2;color:#263344
 .preview-switch{background:#fafbfcee;border-color:#c7cfd9;color:#7d8590}.preview-switch a,.preview-switch b{color:#425879}
 @media(max-width:600px){.project-hero.hero-c{padding-top:46px;padding-bottom:32px}.hero-c h1{margin-bottom:23px}.hero-c .project-links a,.hero-c .project-links>span{padding:11px 12px}.hero-c h2{font-size:18px}}
 </style><link href="theme-blue.css?v=clear-cards1" rel="stylesheet"/><link rel="stylesheet" href="replay.css?v=b2-gt-2"><link rel="stylesheet" href="polish.css?v=visual-coding-title1"><link rel="stylesheet" href="case-detail.css?v=mesh-pair1"><link rel="stylesheet" href="contrast-preview.css?v=home-nav4">
-<link rel="stylesheet" href="card-background-preview.css?v=direct3d1">
+<link rel="stylesheet" href="card-background-preview.css?v=direct3d2">
 <style>
 .feature-card:not([data-interactive="true"]) .feature-view{visibility:hidden}
 .feature-card:not([data-interactive="true"]) .preview-tools{visibility:hidden}
-</style><link rel="modulepreload" href="vendor/public-viewer.js?v=direct3d1"></head>
+</style><link rel="modulepreload" href="vendor/public-viewer.js?v=direct3d2">
+</head>
 <body><header class="nav"><a class="project-brand" href="#home"><img alt="AllSpark team" class="studio-mark" src="team-logo.svg"/> GameAtlas</a><nav aria-label="Main navigation"><a href="#benchmark-intro">Benchmark</a><a href="#leaderboard-title">Leaderboard</a><a href="#workflow-title">Showcase</a><a href="#evaluation-title">Evaluation</a></nav></header>
 <main><section class="project-hero hero-b hero-c" id="home"><h1><svg aria-label="GameAtlas" class="hero-art" role="img" viewbox="0 0 912 178"><defs>
 <lineargradient id="ink-face" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#667c9a"></stop><stop offset=".45" stop-color="#3d5576"></stop><stop offset="1" stop-color="#253d60"></stop></lineargradient>
@@ -67,4 +91,4 @@ body{--bg:#f5f5f2;--text:#263344;--gold:#536f99;background:#f5f5f2;color:#263344
 <div class="notes-heading"><h2 id="model-notes-title">How do agents work?</h2></div>
 <div class="notes-tabs" role="tablist" aria-label="Model analysis"></div>
 <div class="notes-window"><article class="notes-card" id="model-note-panel" role="tabpanel" tabindex="0"></article><button class="notes-peek" aria-label="View next model analysis"></button></div>
-</section></main><footer><a class="brand" href="#home"><span class="slash">/</span> GAMEATLAS</a><p>Visual coding and spatial reasoning in game development.</p><a href="#home">Back to top ↑</a></footer><script src="leaderboard-data.js?v=argon-avg2-24"></script><script src="app.js?v=stable-sort-4"></script><script src="tour-data.js?v=direct3d1"></script><script src="case-data.js?v=reviewed-tasks3"></script><script src="tour.js?v=direct3d1"></script><script src="atlas.js?v=reviewed-tasks3"></script><script src="features.js?v=direct3d1" type="module"></script><script defer="" src="evidence.js?v=sketch-v11"></script><script src="replay.js?v=direct3d1"></script><script src="model-notes.js?v=trajectory-11"></script></body></html>
+</section></main><footer><a class="brand" href="#home"><span class="slash">/</span> GAMEATLAS</a><p>Visual coding and spatial reasoning in game development.</p><a href="#home">Back to top ↑</a></footer><script src="leaderboard-data.js?v=argon-avg2-24"></script><script src="app.js?v=stable-sort-4"></script><script src="tour-data.js?v=direct3d2"></script><script src="case-data.js?v=reviewed-tasks3"></script><script src="tour.js?v=direct3d2"></script><script src="atlas.js?v=reviewed-tasks3"></script><script src="features.js?v=direct3d2" type="module"></script><script defer="" src="evidence.js?v=sketch-v11"></script><script src="replay.js?v=direct3d2"></script><script src="model-notes.js?v=trajectory-11"></script></body></html>
