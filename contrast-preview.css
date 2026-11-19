@@ -58,15 +58,9 @@ body {
   box-shadow: 0 1px 0 #9db0cb;
 }
 
-.hero-c .project-links a:last-child {
-  background: var(--accent-strong);
-  border-color: var(--accent-strong);
-  box-shadow: 3px 4px 0 #1d3555;
-}
 
-.hero-c .project-links a:last-child:hover {
-  background: #23416a;
-}
+
+
 
 .hero-c .project-links > span {
   opacity: 1;
