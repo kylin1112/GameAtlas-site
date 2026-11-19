@@ -1,5 +1,10 @@
-const decks={animation:[['animation-expert-13-v1','CREATURE MONSTER'],['animation-expert-10-v1','DRAGO 3D'],['animation-expert-01-v1','Ghillie Suit Sniper'],['animation-ronin-stow-v1','Ronin']],mesh:[['mesh-i2m-expert-03-v1','Iron Man'],['mesh-i2m-expert-59-v1','NieR:Automata'],['mesh-i2m-nailong-v1','Nailong'],['mesh-i2m-expert-60-v1','Silksong']],uv:['008','010','002','006'].map(n=>['mesh-uv-'+n+'-r04','uv-'+n+'-r04'])};
 const cases=window.GAMEATLAS_TOUR;
+const deckIds={
+ animation:['animation-expert-13-v1','animation-expert-10-v1','animation-expert-01-v1','animation-ronin-stow-v1'],
+ mesh:['mesh-i2m-expert-03-v1','mesh-i2m-expert-59-v1','mesh-i2m-nailong-v1','mesh-i2m-expert-60-v1'],
+ uv:['008','010','002','006'].map(n=>'mesh-uv-'+n+'-r04')
+};
+const decks=Object.fromEntries(Object.entries(deckIds).map(([kind,ids])=>[kind,ids.map(id=>[id,cases.find(item=>item.id===id).case])]));
 let viewer;
 let viewerPromise;
 function loadViewer() {
@@ -24,7 +29,7 @@ function scoreCard(card,id){
  const i=cases.findIndex(c=>c.id===id),item=cases[i],model=item.display.model;
  const r=window.GAMEATLAS_CASE_DATA.tasks[id][model],name=window.GAMEATLAS_CASE_DATA.models.find(m=>m.id===model).name;
  card.dataset.previewCase=id;card.querySelector('.feature-model').innerHTML=modelIdentity(name);
- card.querySelector('.feature-score').innerHTML=`${Number.isFinite(r.score)?r.score.toFixed(1):'—'} <small>/ 100</small>`;card.querySelectorAll('.inspect-case').forEach(b=>{b.setAttribute('aria-label',`Inspect ${item.case}: ${name}`);b.onclick=()=>{card.dataset.inspecting='true';window.openAtlasCase(i,b,decks[card.querySelector('[data-carousel]').dataset.carousel].map(([id])=>cases.findIndex(c=>c.id===id)))}})}
+ card.querySelector('.feature-score').innerHTML=`${item.display.submission ? r.examples[0].score.toFixed(1) : Number.isFinite(r.score)?r.score.toFixed(1):'—'} <small>/ 100${item.display.submission ? " · Submission 1" : ""}</small>`;card.querySelectorAll('.inspect-case').forEach(b=>{b.setAttribute('aria-label',`Inspect ${item.case}: ${name}`);b.onclick=()=>{card.dataset.inspecting='true';window.openAtlasCase(i,b,decks[card.querySelector('[data-carousel]').dataset.carousel].map(([id])=>cases.findIndex(c=>c.id===id)))}})}
 function carousel(kind){const host=document.querySelector(kind==='animation'?'#feature-animation':kind==='mesh'?'#feature-heat':'#feature-uv'),controls=document.querySelector(`[data-carousel="${kind}"]`),card=host.closest('article'),status=card.querySelector('.switch-status');let index=-1,request=0,busy=false,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,visible=false,nextAt=Infinity;const pointers=new Set(),keys=new Set();scoreCard(card,decks[kind][0][0]);document.querySelector(`#${kind}-name`).textContent=decks[kind][0][1];const restart=()=>{nextAt=performance.now()+ROTATION_MS};new IntersectionObserver(es=>{visible=es[0].isIntersecting;restart()}).observe(card);
  let ctx, gtCtx;
  async function initialize() {

@@ -1,0 +1,20 @@
+{
+  "run_id": "6af9c8e479d400262f89a454",
+  "snapshot": "2026-11-18 16:08 CST",
+  "scores": {
+    "claude-opus-5-5": {
+      "sponza-reference-render-ladder-v2-threejs": {
+        "score": 35.0752,
+        "first": null,
+        "run": 2,
+        "kind": "measured"
+      },
+      "sponza-reference-render-ladder-v2": {
+        "score": 7.7575,
+        "first": null,
+        "run": 2,
+        "kind": "measured"
+      }
+    }
+  }
+}

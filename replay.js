@@ -113,9 +113,8 @@ function paint() {
   q('#replay-cursor').setAttribute('cy', now[1]);
   const inspecting = elapsed < inspectTime;
   const previousScore = step ? data[step - 1].score : 0;
-  let score = (previousScore + (data[step].score - previousScore) * t).toFixed(2);
+  const score = (previousScore + (data[step].score - previousScore) * t).toFixed(2);
   if (active.inspections) {
-    score = progress === 1 ? data[step].score.toFixed(2) : step ? previousScore.toFixed(2) : '—';
     const caption = q('#replay-note');
     const message = peek ? 'Reference' : inspecting ? active.inspections[step] : active.notes[step];
     if (caption.dataset.message !== message) {
