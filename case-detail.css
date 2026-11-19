@@ -13,3 +13,11 @@
 @media(prefers-reduced-motion:reduce){#case-dialog *{animation:none!important;transition:none!important}}
 #case-dialog .detail-controls input[type=checkbox]{flex:none;min-width:0;width:14px;height:14px;margin:0;accent-color:#5a7faf}#case-dialog #case-close{background:#dce6f3;color:#5f7b9f;border:1px solid #c3d4e9;width:37px;height:37px;font-size:23px}
 @media(min-width:1500px){.detail-media{height:min(47vh,540px)}}
+
+#case-dialog.animation-detail { width: min(1420px, 94vw); scrollbar-width: none; }
+#case-dialog.animation-detail::-webkit-scrollbar { display: none; }
+.animation-detail #input-media { background: transparent; }
+.animation-detail .detail-views:empty, .animation-detail .detail-caption:empty { display: none; }
+.detail-ghost-toggle { position: absolute; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 5px; padding: 5px 9px; border: 1px solid #c3d4e9; border-radius: 1rem; background: #fffffff0; color: #405775; font-size: 12px; cursor: pointer; }
+.detail-ghost-toggle input { margin: 0; accent-color: #527bad; }
+@media(max-width:600px) { #case-dialog.animation-detail { width: 100vw; } }

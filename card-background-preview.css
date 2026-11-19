@@ -12,3 +12,21 @@
 #pipeline .atlas-case-object .atlas-case-copy {
   background: #fff;
 }
+
+/* Reserve the same title slot for every slide so navigation stays under the pointer. */
+.feature-card .carousel-controls[data-carousel] {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 7rem) 25px 20px;
+  width: calc(7rem + 70px + 3 * 0.4rem);
+  max-width: 100%;
+  align-items: center;
+  min-width: 0;
+}
+.feature-card .carousel-controls[data-carousel] .case-title {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
