@@ -1,0 +1,17 @@
+{
+  "run_id": "6aff2e173cb9ca3ae12e341a",
+  "snapshot": "2026-11-20 CST",
+  "selection": "Two designated repeats (5 and 6) from eight independent Sponza OpenGL trials.",
+  "scores": {
+    "claude-opus-5-5": {
+      "sponza-reference-render-ladder-v2": {
+        "run": 2,
+        "repeat": 6,
+        "first": 21.9213,
+        "score": 35.0169,
+        "kind": "measured",
+        "terminal": "NORMAL_FAIL"
+      }
+    }
+  }
+}

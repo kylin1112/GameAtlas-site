@@ -3,7 +3,7 @@ const cases=window.GAMEATLAS_TOUR,data=window.GAMEATLAS_CASE_DATA,dialog=documen
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),num=v=>Number.isFinite(v)?v.toFixed(2):'—';
 const names={pose:'Pose & trajectory',constraints:'Contacts & support',temporal:'Temporal stability',form:'Form',silhouette:'Silhouette',structure:'Structure',detail:'Detail',continuity:'Surface continuity',distortion:'Distortion',density:'Texel density',coverage:'Atlas coverage',regularity:'Regularity',shape:'Shape preservation',gross:'Large-scale structure',parts:'Missing parts',bulk:'Volume',under:'Undersampling',messy:'Irregular topology',local:'Local detail',planar:'Planar surfaces',ngon:'Polygon structure',transform:'Transforms',integrity:'Mesh integrity',budget:'Triangle budget',center:'Object placement',object_integrity:'Object integrity',physical:'Physical relationships',rotation:'Orientation',delivery:'Delivery',translation:'Camera position',reprojection:'Frame alignment',focal:'Field of view',identity:'Layer identity',layout:'Layer placement',visibility:'Visibility',relations:'Layer relationships',visual_score:'Image similarity',rung_score:'Stage quality',validity:'Contract validity',geometry_defects:'Geometry defects',delivery_orientation:'Delivery orientation',frame_similarity_score:'Frame similarity',material_focus_score:'Material fidelity',transmission_highlight_score:'Transmission & highlights',stability_score:'Stability'};
 let index=0,model=data.models[0].id,version=0,api=null,opener=null,catalogPromise,rung=null,exampleIndex=0;
-const $=s=>dialog.querySelector(s),base=()=>`case-assets/${model}/${cases[index].id}/`,selected=()=>data.tasks[cases[index].id]?.[model]||{},label=id=>names[id]||id.replaceAll('_',' ');
+const $=s=>dialog.querySelector(s),base=()=>`case-assets/${model}/${cases[index].id}/`,caseScores=()=>data.tasks[cases[index].id]?.[model]||{},selected=()=>caseScores().deliveries?.[exampleIndex]||caseScores(),label=id=>names[id]||id.replaceAll('_',' ');
 function stop(){version++;api?.dispose();api=null;dialog.querySelectorAll('video').forEach(v=>v.pause())}
 function empty(host,title,detail=''){host.innerHTML=`<div class="detail-empty">${esc(title)}${detail?`<small>${esc(detail)}</small>`:''}</div>`}
 function image(host,url,alt){host.replaceChildren();const img=new Image();img.alt=alt;img.src=url;img.onerror=()=>empty(host,'Preview unavailable','Please try again.');host.append(img)}
@@ -14,19 +14,32 @@ function score(){
  $('#case-score').textContent=num(record.score);
  $('#score-type').textContent=sample ? `Submission ${sample.submission}` : 'Final score';
  $('#case-first').textContent=sample ? `Run ${sample.run} final score  ${num(sample.finalScore)} / 100` : Number.isFinite(final.first) ? `First submission  ${num(final.first)} / 100` : final.run===2 && cases[index].stage===5 ? 'Run 2 · Final delivery' : 'First submission pending';
- $('#detail-source').innerHTML=`${esc(cases[index].id)}<br>Run ${esc(record.run)} · ${sample ? 'Submission '+sample.submission : 'Final delivery'}<br>${sample ? 'Evaluation '+esc(sample.evaluationId) : 'Score for this delivery.'}${!sample && final.job ? `<br><a href="${esc(final.job)}" target="_blank" rel="noopener">Public score record ↗</a>` : ''}`;
+ $('#detail-source').innerHTML=`${esc(cases[index].id)}<br>${record.repeat ? 'Stability repeat '+esc(record.repeat)+' of 8 · Leaderboard slot '+esc(record.run) : 'Run '+esc(record.run)} · ${sample ? 'Submission '+sample.submission : 'Final delivery'}<br>${sample ? 'Evaluation '+esc(sample.evaluationId) : record.repeat ? 'Two selected repeats contribute to the leaderboard. Terminal state: '+esc(record.terminal) : 'Score for this delivery.'}${!sample && final.job ? `<br><a href="${esc(final.job)}" target="_blank" rel="noopener">Public score record ↗</a>` : ''}`;
 }
 function evaluation(e){if(!e){$('.detail-report').innerHTML=`<p class="detail-rule">${Number.isFinite(selected().score)?'A score is recorded; detailed evidence is not available for this delivery.':'This run has not completed. No score has been assigned.'}</p>`;return;}
  const metrics=(e.metrics||[]).map(m=>`<details class="detail-metric"><summary><span>${esc(label(m.id))}</span><b>${num(m.score)}${Number.isFinite(m.maximum)?` <small>/ 100</small>`:''}</b></summary><div class="detail-meter"><i style="--score:${Math.max(0,Math.min(100,m.score||0))}%"></i></div><p>${Number.isFinite(m.weight)?`Weight ${(m.weight*100).toFixed(0)}%. `:''}${m.role==='multiplier'?'Applied as a stability multiplier. ':''}${Number.isFinite(m.deduction)?`Lost ${num(m.deduction)} points${Number.isFinite(m.maximum)?` (maximum ${num(m.maximum)})`:''}.`:'Measured quality for this dimension; see the scoring formula above.'}</p></details>`).join('');
  const ds=(e.deductions||[]).map(d=>`<details class="detail-metric loss"><summary><span>${esc(label(d.id))}</span><b>${d.points>0?'−':''}${num(d.points)}</b></summary><p>${esc(d.reason||(d.points>0?'Measured deduction applied to this delivery.':'No deduction was applied.'))}</p></details>`).join('');
  $('.detail-report').innerHTML=`<p class="detail-rule">${esc(e.summary||'Objective measurements from this delivery.')}</p>${metrics}${ds?`<section class="detail-deductions"><h3>Point deductions</h3>${ds}</section>`:''}${(e.checks||[]).map(x=>`<p class="detail-check">${esc(x)}</p>`).join('')}${rung?`<p class="detail-note">Details: ${esc(rung)}. Final score above reflects the recorded task result.</p>`:''}`;
 }
-function modelButtons(){const s=cases[index];$('.detail-models').innerHTML=data.models.map(m=>`<button data-model="${esc(m.id)}" aria-pressed="${model===m.id}">${modelIdentity(esc(m.name))}<b>${num(data.tasks[s.id]?.[m.id]?.examples?.[model===m.id ? exampleIndex : 0]?.score ?? data.tasks[s.id]?.[m.id]?.score)}</b></button>`).join('');$('.detail-models').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(model===b.dataset.model)return;model=b.dataset.model;exampleIndex=0;rung=null;modelButtons();score();media()});}
+function modelButtons(){const s=cases[index];$('.detail-models').innerHTML=data.models.map(m=>`<button data-model="${esc(m.id)}" aria-pressed="${model===m.id}">${modelIdentity(esc(m.name))}<b>${num(data.tasks[s.id]?.[m.id]?.examples?.[model===m.id ? exampleIndex : 0]?.score ?? (model===m.id ? selected().score : data.tasks[s.id]?.[m.id]?.score))}</b></button>`).join('');$('.detail-models').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(model===b.dataset.model)return;model=b.dataset.model;exampleIndex=0;rung=null;modelButtons();score();media()});}
 async function media(){stop();const v=version,s=cases[index],left=$('#input-media'),right=$('#output-media'),stale=()=>v!==version||!dialog.open;$('.detail-controls').replaceChildren();$('#input-views').replaceChildren();$('#output-views').replaceChildren();left.innerHTML=right.innerHTML='<span class="detail-loading">Preparing preview</span>';$('.detail-caption').textContent='';$('.detail-report').innerHTML='<p class="detail-rule">Loading evaluation evidence…</p>';
  try{
- catalogPromise??=fetch('case-assets/catalog.json?v=reviewed-tasks2', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
+ catalogPromise??=fetch('case-assets/catalog.json?v=opus-native20', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
  const catalog=await catalogPromise;if(stale())return;
- const record=catalog.find(x=>x.model===model&&x.task===s.id)||{},path=base(),refbase=`case-assets/references/${s.id}/`;
+ const entry=catalog.find(x=>x.model===model&&x.task===s.id)||{};
+ const record=entry.deliveries?.[exampleIndex]||entry,path=base(),refbase=`case-assets/references/${s.id}/`;
+ const deliveries=caseScores().deliveries;
+ if(deliveries){
+  const controls=$('.detail-controls');
+  for(const [i,delivery] of deliveries.entries()){
+   const button=document.createElement('button');
+   button.type='button';
+   button.textContent='Repeat '+delivery.repeat+' · '+num(delivery.score);
+   button.setAttribute('aria-pressed',String(i===exampleIndex));
+   button.onclick=()=>{exampleIndex=i;modelButtons();score();media()};
+   controls.append(button);
+  }
+ }
  const samples=selected().examples || [];
  const sample=samples[exampleIndex];
  if(samples.length){
@@ -51,7 +64,7 @@ async function media(){stop();const v=version,s=cases[index],left=$('#input-medi
   input=refbase+'gt.glb.gz';
  }else if(s.stage===5){
   const level=rung?.split('-')[0];
-  if(level)image(left,refbase+level+'.webp','Ground truth');
+  if(level)image(left,refbase+(active.referenceImage||level+'.webp'),'Ground truth');
   else empty(left,'Ground truth unavailable');
  }else if(s.stage===4||s.stage===6){
   const ri=rung?Math.max(0,parseInt(rung.slice(1))||0):0;const src=s.views?.[ri]?.[1]||s.image;image(left,'assets/cases/'+src,'Task reference');
