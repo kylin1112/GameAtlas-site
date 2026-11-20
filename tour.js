@@ -3,7 +3,7 @@ const cases=window.GAMEATLAS_TOUR,data=window.GAMEATLAS_CASE_DATA,dialog=documen
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),num=v=>Number.isFinite(v)?v.toFixed(2):'—';
 const names={pose:'Pose & trajectory',constraints:'Contacts & support',temporal:'Temporal stability',form:'Form',silhouette:'Silhouette',structure:'Structure',detail:'Detail',continuity:'Surface continuity',distortion:'Distortion',density:'Texel density',coverage:'Atlas coverage',regularity:'Regularity',shape:'Shape preservation',gross:'Large-scale structure',parts:'Missing parts',bulk:'Volume',under:'Undersampling',messy:'Irregular topology',local:'Local detail',planar:'Planar surfaces',ngon:'Polygon structure',transform:'Transforms',integrity:'Mesh integrity',budget:'Triangle budget',center:'Object placement',object_integrity:'Object integrity',physical:'Physical relationships',rotation:'Orientation',delivery:'Delivery',translation:'Camera position',reprojection:'Frame alignment',focal:'Field of view',identity:'Layer identity',layout:'Layer placement',visibility:'Visibility',relations:'Layer relationships',visual_score:'Image similarity',rung_score:'Stage quality',validity:'Contract validity',geometry_defects:'Geometry defects',delivery_orientation:'Delivery orientation',frame_similarity_score:'Frame similarity',material_focus_score:'Material fidelity',transmission_highlight_score:'Transmission & highlights',stability_score:'Stability'};
 let index=0,model=data.models[0].id,version=0,api=null,opener=null,catalogPromise,rung=null,exampleIndex=0;
-const $=s=>dialog.querySelector(s),base=()=>`case-assets/${model}/${cases[index].id}/`,caseScores=()=>data.tasks[cases[index].id]?.[model]||{},selected=()=>caseScores().deliveries?.[exampleIndex]||caseScores(),label=id=>names[id]||id.replaceAll('_',' ');
+const $=s=>dialog.querySelector(s),base=()=>`case-assets/${model}/${cases[index].id}/`,selected=()=>data.tasks[cases[index].id]?.[model]||{},label=id=>names[id]||id.replaceAll('_',' ');
 function stop(){version++;api?.dispose();api=null;dialog.querySelectorAll('video').forEach(v=>v.pause())}
 function empty(host,title,detail=''){host.innerHTML=`<div class="detail-empty">${esc(title)}${detail?`<small>${esc(detail)}</small>`:''}</div>`}
 function image(host,url,alt){host.replaceChildren();const img=new Image();img.alt=alt;img.src=url;img.onerror=()=>empty(host,'Preview unavailable','Please try again.');host.append(img)}
@@ -26,20 +26,7 @@ async function media(){stop();const v=version,s=cases[index],left=$('#input-medi
  try{
  catalogPromise??=fetch('case-assets/catalog.json?v=opus-native20', {cache:'no-cache'}).then(r=>{if(!r.ok)throw Error();return r.json()});
  const catalog=await catalogPromise;if(stale())return;
- const entry=catalog.find(x=>x.model===model&&x.task===s.id)||{};
- const record=entry.deliveries?.[exampleIndex]||entry,path=base(),refbase=`case-assets/references/${s.id}/`;
- const deliveries=caseScores().deliveries;
- if(deliveries){
-  const controls=$('.detail-controls');
-  for(const [i,delivery] of deliveries.entries()){
-   const button=document.createElement('button');
-   button.type='button';
-   button.textContent='Repeat '+delivery.repeat+' · '+num(delivery.score);
-   button.setAttribute('aria-pressed',String(i===exampleIndex));
-   button.onclick=()=>{exampleIndex=i;modelButtons();score();media()};
-   controls.append(button);
-  }
- }
+ const record=catalog.find(x=>x.model===model&&x.task===s.id)||{},path=base(),refbase=`case-assets/references/${s.id}/`;
  const samples=selected().examples || [];
  const sample=samples[exampleIndex];
  if(samples.length){
